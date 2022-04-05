@@ -37,6 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
+
+    'authentify.apps.AuthentifyConfig',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +74,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'DebtFix.wsgi.application'
+
+
+AUTH_USER_MODEL = 'authentify.CustomUser'
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Database

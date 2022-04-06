@@ -1,1 +1,1 @@
-web: gunicorn DebtFix.wsgi 
+web: gunicorn --pythonpath DebtFix DebtFix.wsgi --log-file -

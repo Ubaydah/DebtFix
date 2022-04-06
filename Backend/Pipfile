@@ -10,6 +10,12 @@ django-cors-headers = "*"
 black = "*"
 django-heroku = "*"
 dj-database-url = "*"
+gunicorn = "*"
+whitenoise = "*"
+psycopg2 = "*"
+sqlparse = "*"
+asgiref = "*"
+pytz = "*"
 
 [dev-packages]
 

@@ -16,6 +16,7 @@ psycopg2 = "*"
 sqlparse = "*"
 asgiref = "*"
 pytz = "*"
+cloudinary = "*"
 
 [dev-packages]
 

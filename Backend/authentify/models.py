@@ -1,10 +1,12 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.fields import SlugField
+from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.template.defaultfilters import slugify
 
+from .enums import Banks, Gender, Status
 from .managers import CustomUserManager
 
 
@@ -29,3 +31,36 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
+
+class BaseClass(models.Model):
+    """
+    Base class that contains fields other model classes will subclass from
+    """
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+        get_latest_by = "updated_at"
+        ordering = ("-updated_at", "-created_at")
+
+class Profile(BaseClass):
+    
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    firstname = models.CharField(max_length=250, blank=True)
+    lastname = models.CharField(max_length=250, blank=True)
+    gender = models.CharField(max_length=250, blank=True, choices=Gender.choices)
+    phone_number = models.IntegerField(null=True)
+    
+    def __str__(self):
+        return f"{self.user.username} Profile"
+
+# class Creditor(BaseClass):
+#     user = 
+#     name = 
+#     amount_owned =
+#     date_due =
+#     bank_code =
+#     account_number =
+#     status =

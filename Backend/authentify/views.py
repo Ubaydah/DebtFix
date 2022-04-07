@@ -10,7 +10,7 @@ from rest_framework.permissions import AllowAny
 
 class Login(APIView):
 
-    permission_classes = ()
+    permission_classes = [AllowAny,]
 
     def post(self, request):
         email = request.data.get("email")

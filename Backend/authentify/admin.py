@@ -2,7 +2,8 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser
+from .models import CustomUser, Creditor ,Profile, \
+    Wallet, WalletTransaction
 
 
 class CustomUserAdmin(UserAdmin):
@@ -28,5 +29,11 @@ class CustomUserAdmin(UserAdmin):
     search_fields = ('email',)
     ordering = ('email',)
 
+class BaseClassAdmin(admin.ModelAdmin):
+    readonly_fields = ('created_at', 'updated_at',)
 
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Creditor, BaseClassAdmin)
+admin.site.register(Profile, BaseClassAdmin)
+admin.site.register(Wallet, BaseClassAdmin)
+admin.site.register(WalletTransaction, BaseClassAdmin)

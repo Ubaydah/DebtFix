@@ -5,9 +5,24 @@ class Gender(TextChoices):
     MALE = "MALE"
     FEMALE = "FEMALE"
 
+
 class Status(TextChoices):
     PAID = "PAID"
     UNPAID = "UNPAID"
+
+
+class TransactionType(TextChoices):
+    DEPOSIT = "DEPOSIT"
+    CREDIT = "CREDIT"
+
+
+class TransactionStatus(TextChoices):
+    INITIATED = "INITIATED"
+    PENDING = "PENDING"
+    SUCCESS = "SUCCESS"
+    REVERSED = "REVERSED"
+    FAILED = "FAILED"
+
 
 class Banks(TextChoices):
     Access_Bank = "044"

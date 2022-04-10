@@ -17,6 +17,7 @@ sqlparse = "*"
 asgiref = "*"
 pytz = "*"
 cloudinary = "*"
+requests = "*"
 
 [dev-packages]
 

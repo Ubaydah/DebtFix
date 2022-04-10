@@ -2,18 +2,18 @@ from django.db.models import TextChoices
 
 
 class Gender(TextChoices):
-    MALE = "MALE"
-    FEMALE = "FEMALE"
+    MALE = "male"
+    FEMALE = "female"
 
 
 class Status(TextChoices):
-    PAID = "PAID"
-    UNPAID = "UNPAID"
+    PAID = "paid"
+    UNPAID = "unpaid"
 
 
 class TransactionType(TextChoices):
-    DEPOSIT = "DEPOSIT"
-    CREDIT = "CREDIT"
+    DEPOSIT = "deposit"
+    CREDIT = "credit"
 
 
 class TransactionStatus(TextChoices):

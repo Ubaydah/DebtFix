@@ -1,3 +1,4 @@
+from email.policy import default
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.fields import SlugField
@@ -69,12 +70,9 @@ class Wallet(BaseClass):
         settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE
     )
     currency = models.CharField(_("currency"), max_length=50, default="NGN")
-    balance = models.DecimalField(
-        _("balance"), max_digits=11, decimal_places=3, default=0, blank=True
-    )
 
     def __str__(self):
-        return self.user.__str__()
+        return f"{self.user.username} Wallet"
 
 
 class Creditor(BaseClass):
@@ -85,7 +83,7 @@ class Creditor(BaseClass):
     amount_owned = models.DecimalField(
         _("amount_owned"), max_digits=11, decimal_places=3
     )
-    date_due = models.DateTimeField(_("date_due"))
+    date_due = models.DateTimeField(_("date_due"), default=timezone.now())
     bank_code = models.CharField(
         _("bank_code"), choices=Banks.choices, max_length=6, null=False, blank=False
     )
@@ -96,6 +94,9 @@ class Creditor(BaseClass):
     status = models.CharField(
         _("status"), choices=Status.choices, max_length=40, default=Status.UNPAID
     )
+
+    def __str__(self):
+        return self.name
 
 
 class WalletTransaction(BaseClass):
@@ -118,3 +119,6 @@ class WalletTransaction(BaseClass):
     destination = models.ForeignKey(
         Creditor, on_delete=models.CASCADE, related_name="destination", blank=True
     )
+
+    def __str__(self):
+        return self.wallet.user.__str__()

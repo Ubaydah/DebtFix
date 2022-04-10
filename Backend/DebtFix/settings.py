@@ -119,7 +119,6 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
     ),
-    
 }
 
 # Internationalization
@@ -143,5 +142,7 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+PAYSTACK_SECRET_KEY = "sk_test_30ce4bbbb67824917f4893d27f7ad8b170ea02bd"
+PAYSTACK_URL ='https://api.paystack.co'
 
 django_heroku.settings(locals())

@@ -124,6 +124,9 @@ REST_FRAMEWORK = {
 }
 
 
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.ngrok.io']
+
+
 HUEY = {
     "name": "DebtFix",
     "huey_class": "huey.PriorityRedisExpireHuey",

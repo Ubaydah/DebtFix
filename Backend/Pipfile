@@ -18,7 +18,6 @@ asgiref = "*"
 pytz = "*"
 cloudinary = "*"
 requests = "*"
-huey = {extras = ["backends"], version = "*"}
 redis = "*"
 pyngrok = "*"
 

@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
-    "huey.contrib.djhuey",
     "authentify.apps.AuthentifyConfig",
 ]
 
@@ -125,26 +124,6 @@ REST_FRAMEWORK = {
 
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".ngrok.io"]
-
-REDIS_URL = "redis://localhost:6379/4"
-
-
-HUEY = {
-    "name": "DebtFix",
-    "huey_class": "huey.PriorityRedisExpireHuey",
-    "immediate": False,
-    "utc": True,
-    "consumer": {
-        "workers": 2,
-        "worker_type": "thread",
-        "initial_delay": 0.1,
-        "backoff": 1.15,
-        "max_delay": 10.0,
-        "scheduler_interval": 1,
-        "periodic": True,
-        "check_worker_health": True,
-    },
-}
 
 
 # Internationalization

@@ -7,8 +7,6 @@ from django.views import generic
 from rest_framework.generics import (
     CreateAPIView,
     UpdateAPIView,
-    RetrieveAPIView,
-    ListAPIView,
 )
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -198,8 +196,6 @@ class DepositFunds(CreateAPIView):
 class PaystackWebhookView(APIView):
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body.decode("utf-8"))
-
-        print(data)
 
         handle_webhook(data)
 

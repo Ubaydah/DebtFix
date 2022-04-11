@@ -5,8 +5,8 @@ from rest_framework.authtoken.models import Token
 
 from .models import CustomUser, Creditor, Profile, Wallet, WalletTransaction
 from .services import paystack
+from .utils import is_amount
 
-import requests
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -72,6 +72,8 @@ class WalletSerializer(serializers.ModelSerializer):
 
 
 class CreditorSerializer(serializers.ModelSerializer):
+    amount_owned = serializers.IntegerField(validators=[is_amount])
+
     class Meta:
         model = Creditor
         fields = [
@@ -120,3 +122,16 @@ class CreditorSerializer(serializers.ModelSerializer):
             wallet=wallet, recipient_code=recipient_code, **validated_data
         )
         return creditor
+
+
+class DepositFunds(serializers.ModelSerializer):
+    amount = serializers.IntegerField(validators=[is_amount])
+    email = serializers.EmailField()
+
+    class Meta:
+        model = WalletTransaction
+    
+    def validate_email(self, value):
+        if CustomUser.objects.filter(email=value).exists():
+            return value
+        raise serializers.ValidationError({"detail": "Email not found"})

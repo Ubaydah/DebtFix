@@ -1,7 +1,12 @@
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.generics import CreateAPIView, UpdateAPIView, RetrieveAPIView
+from rest_framework.generics import (
+    CreateAPIView,
+    UpdateAPIView,
+    RetrieveAPIView,
+    ListAPIView,
+)
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
@@ -23,9 +28,17 @@ class Login(APIView):
     def post(self, request):
         email = request.data.get("email")
         password = request.data.get("password")
+        user_data = CustomUser.objects.get(email=email)
         user = authenticate(email=email, password=password)
         if user:
-            return Response({"token": user.auth_token.key, "email": email})
+            return Response(
+                {
+                    "token": user.auth_token.key,
+                    "email": email,
+                    "id": user_data.id,
+                    "username": user_data.username,
+                }
+            )
         else:
             return Response(
                 {"error": "Wrong Credentials"}, status=status.HTTP_400_BAD_REQUEST
@@ -98,6 +111,13 @@ class UpdateProfile(UpdateAPIView):
         )
 
 
+class GetProfile(RetrieveAPIView):
+
+    serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated]
+    queryset = Profile.objects.all()
+
+
 class CreateCreditor(CreateAPIView):
 
     serializer_class = CreditorSerializer
@@ -139,3 +159,14 @@ class UpdateCreditor(UpdateAPIView):
             {"detail": "Creditor updated successfully"},
             status=status.HTTP_200_OK,
         )
+
+
+class GetCreditors(APIView):
+
+    serializer_class = CreditorSerializer
+
+    def get(self, request):
+        creditors = Creditor.objects.filter(wallet__user=request.user)
+        serializer = self.serializer_class(creditors, many=True)
+
+        return Response(serializer.data)

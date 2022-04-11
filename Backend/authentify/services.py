@@ -1,6 +1,4 @@
-from asyncio.log import logger
 import logging
-from black import err
 import requests
 from django.conf import settings
 from requests.exceptions import RequestException
@@ -23,6 +21,21 @@ class Paystack:
             if response.status_code == 201:
                 response = response.json()
                 return response["data"]["recipient_code"]
+        except RequestException as err:
+            logger.exception(err)
+            return None
+
+    def initialize_transaction(self, payload):
+        try:
+            response = requests.post(
+                f"{settings.PAYSTACK_URL}/transaction/initialize",
+                data=payload,
+                headers=self.headers,
+            )
+
+            if response.status_code == 200:
+                response = response.json()
+                return response["data"]["authorization_url"]
         except RequestException as err:
             logger.exception(err)
             return None

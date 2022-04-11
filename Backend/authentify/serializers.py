@@ -41,6 +41,20 @@ class ProfileSerializer(serializers.ModelSerializer):
         profile = Profile.objects.create(user=user, **validated_data)
         return profile
 
+    def update(self, instance, validated_data):
+        user = self.context["request"].user
+
+        instance.firstname = validated_data["firstname"]
+        instance.lastname = validated_data["lastname"]
+        instance.gender = validated_data["gender"]
+        instance.phone_number = validated_data["phone_number"]
+
+        instance.save()
+
+        profile = Profile.objects.update(user=user, **validated_data)
+
+        return profile
+
 
 class WalletSerializer(serializers.ModelSerializer):
 
@@ -50,9 +64,6 @@ class WalletSerializer(serializers.ModelSerializer):
         bal = WalletTransaction.objects.filter(wallet=obj).aggregate(Sum("amount"))[
             "amount__sum"
         ]
-        if bal == "null":
-            return float(0.00)
-
         return bal
 
     class Meta:
@@ -64,6 +75,7 @@ class CreditorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Creditor
         fields = [
+            "id",
             "name",
             "amount_owned",
             "date_due",

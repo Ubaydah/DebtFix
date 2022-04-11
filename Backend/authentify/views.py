@@ -69,6 +69,7 @@ class CreateProfile(CreateAPIView):
             data=request.data, context={"request": request}
         )
         serializer.is_valid(raise_exception=True)
+        serializer.save()
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -80,6 +81,21 @@ class UpdateProfile(UpdateAPIView):
     ]
     serializer_class = ProfileSerializer
     queryset = Profile.objects.all()
+
+    def put(self, request, *args, **kwargs):
+
+        instance = self.get_object()
+
+        serializer = self.get_serializer(
+            instance, data=request.data, context={"request": request}
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(
+            {"detail": "Profile updated successfully"},
+            status=status.HTTP_200_OK,
+        )
 
 
 class CreateCreditor(CreateAPIView):

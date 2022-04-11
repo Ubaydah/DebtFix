@@ -1,5 +1,6 @@
 import logging
 import requests
+from uuid import uuid4
 from django.conf import settings
 from requests.exceptions import RequestException
 
@@ -26,6 +27,7 @@ class Paystack:
             return None
 
     def initialize_transaction(self, payload):
+
         try:
             response = requests.post(
                 f"{settings.PAYSTACK_URL}/transaction/initialize",
@@ -35,7 +37,11 @@ class Paystack:
 
             if response.status_code == 200:
                 response = response.json()
-                return response["data"]["authorization_url"]
+                return (
+                    response["data"]["authorization_url"],
+                    response["data"]["reference"],
+                )
+
         except RequestException as err:
             logger.exception(err)
             return None

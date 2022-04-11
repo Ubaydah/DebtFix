@@ -55,6 +55,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "authentify.middleware.PaystackMiddleware",
 ]
 
 ROOT_URLCONF = "DebtFix.urls"
@@ -143,6 +144,6 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 PAYSTACK_SECRET_KEY = "sk_test_30ce4bbbb67824917f4893d27f7ad8b170ea02bd"
-PAYSTACK_URL ='https://api.paystack.co'
+PAYSTACK_URL = "https://api.paystack.co"
 
 django_heroku.settings(locals())

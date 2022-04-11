@@ -1,3 +1,4 @@
+import json
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -18,6 +19,7 @@ from .serializers import (
     WalletSerializer,
     DepositFundsSerializer,
 )
+from .tasks import handle_webhook
 
 
 class Login(APIView):
@@ -189,3 +191,14 @@ class DepositFunds(CreateAPIView):
         response = serializer.save()
         print(response)
         return Response({"authorization_url": response}, status=status.HTTP_201_CREATED)
+
+
+class PaystackWebhookView(APIView):
+    def post(self, request, *args, **kwargs):
+        data = json.loads(request.body.decode("utf-8"))
+
+        print(data)
+
+        handle_webhook(data)
+
+        return Response(data={}, status=status.HTTP_200_OK)

@@ -146,13 +146,14 @@ class DepositFundsSerializer(serializers.ModelSerializer):
             "email": validated_data["email"],
             "currency": "NGN",
         }
-        url = paystack.initialize_transaction(payload)
+        url, txn_ref = paystack.initialize_transaction(payload)
 
         WalletTransaction.objects.create(
             wallet=wallet,
             amount=validated_data["amount"],
-            narration = validated_data["narration"],
+            narration=validated_data["narration"],
             transaction_type="deposit",
+            paystack_reference=txn_ref,
         )
 
         return url

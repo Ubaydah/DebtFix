@@ -11,6 +11,7 @@ from .views import (
     UpdateCreditor,
     GetCreditors,
     DepositFunds,
+    PaystackWebhookView,
 )
 
 urlpatterns = [
@@ -25,4 +26,5 @@ urlpatterns = [
     path("profile/get/", GetProfile.as_view(), name="get-profile"),
     path("creditors/", GetCreditors.as_view(), name="get-creditors"),
     path("payment/deposit/", DepositFunds.as_view(), name="depositfunds"),
+    path("payments/paystack/webhook/", PaystackWebhookView.as_view(), name="paystack-webhook")
 ]

@@ -116,8 +116,11 @@ class WalletTransaction(BaseClass):
         choices=TransactionStatus.choices,
         default=TransactionStatus.INITIATED,
     )
+    paystack_reference = models.CharField(
+        _("paystack_reference"), max_length=100, blank=False, null=True
+    )
     # destination = models.ForeignKey(
-    #     Creditor, on_delete=models.CASCADE, related_name="destination", blank=True, 
+    #     Creditor, on_delete=models.CASCADE, related_name="destination", blank=True,
     # )
 
     def __str__(self):

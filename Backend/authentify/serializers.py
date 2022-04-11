@@ -8,7 +8,6 @@ from .services import paystack
 from .utils import is_amount
 
 
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
@@ -61,9 +60,9 @@ class WalletSerializer(serializers.ModelSerializer):
     balance = serializers.SerializerMethodField()
 
     def get_balance(self, obj):
-        bal = WalletTransaction.objects.filter(wallet=obj).aggregate(Sum("amount"))[
-            "amount__sum"
-        ]
+        bal = WalletTransaction.objects.filter(
+            wallet=obj, transaction_status="SUCCESS"
+        ).aggregate(Sum("amount"))["amount__sum"]
         return bal
 
     class Meta:
@@ -124,14 +123,36 @@ class CreditorSerializer(serializers.ModelSerializer):
         return creditor
 
 
-class DepositFunds(serializers.ModelSerializer):
+class DepositFundsSerializer(serializers.ModelSerializer):
     amount = serializers.IntegerField(validators=[is_amount])
     email = serializers.EmailField()
+    narration = serializers.CharField(max_length=100)
 
     class Meta:
         model = WalletTransaction
-    
+        fields = ["email", "amount", "narration"]
+
     def validate_email(self, value):
         if CustomUser.objects.filter(email=value).exists():
             return value
         raise serializers.ValidationError({"detail": "Email not found"})
+
+    def save(self):
+        user = self.context["request"].user
+        wallet = Wallet.objects.get(user=user)
+        validated_data = self.validated_data
+        payload = {
+            "amount": validated_data["amount"],
+            "email": validated_data["email"],
+            "currency": "NGN",
+        }
+        url = paystack.initialize_transaction(payload)
+
+        WalletTransaction.objects.create(
+            wallet=wallet,
+            amount=validated_data["amount"],
+            narration = validated_data["narration"],
+            transaction_type="deposit",
+        )
+
+        return url

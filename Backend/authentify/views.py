@@ -10,12 +10,13 @@ from rest_framework.generics import (
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
-from .models import CustomUser, Profile, Wallet, Creditor
+from .models import CustomUser, Profile, Wallet, Creditor, WalletTransaction
 from .serializers import (
     UserSerializer,
     ProfileSerializer,
     CreditorSerializer,
     WalletSerializer,
+    DepositFundsSerializer,
 )
 
 
@@ -111,11 +112,13 @@ class UpdateProfile(UpdateAPIView):
         )
 
 
-class GetProfile(RetrieveAPIView):
+class GetProfile(APIView):
+    def get(self, request):
 
-    serializer_class = ProfileSerializer
-    permission_classes = [IsAuthenticated]
-    queryset = Profile.objects.all()
+        profile = Profile.objects.get(user=request.user)
+        data = ProfileSerializer(profile).data
+
+        return Response(data)
 
 
 class CreateCreditor(CreateAPIView):
@@ -170,3 +173,19 @@ class GetCreditors(APIView):
         serializer = self.serializer_class(creditors, many=True)
 
         return Response(serializer.data)
+
+
+class DepositFunds(CreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = DepositFundsSerializer
+    queryset = WalletTransaction.objects.all()
+
+    def post(self, request, *args, **kwargs):
+
+        serializer = self.get_serializer(
+            data=request.data, context={"request": request}
+        )
+        serializer.is_valid(raise_exception=True)
+        response = serializer.save()
+        print(response)
+        return Response({"authorization_url": response}, status=status.HTTP_201_CREATED)

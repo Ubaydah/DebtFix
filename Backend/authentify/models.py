@@ -116,9 +116,9 @@ class WalletTransaction(BaseClass):
         choices=TransactionStatus.choices,
         default=TransactionStatus.INITIATED,
     )
-    destination = models.ForeignKey(
-        Creditor, on_delete=models.CASCADE, related_name="destination", blank=True
-    )
+    # destination = models.ForeignKey(
+    #     Creditor, on_delete=models.CASCADE, related_name="destination", blank=True, 
+    # )
 
     def __str__(self):
         return self.wallet.user.__str__()

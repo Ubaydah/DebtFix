@@ -10,6 +10,7 @@ from .views import (
     CreateCreditor,
     UpdateCreditor,
     GetCreditors,
+    DepositFunds,
 )
 
 urlpatterns = [
@@ -21,6 +22,7 @@ urlpatterns = [
     path("user/info/", UserInfo.as_view(), name="user-info"),
     path("creditor/create/", CreateCreditor.as_view(), name="create-creditor"),
     path("creditor/<str:pk>/update/", UpdateCreditor.as_view(), name="update-creditor"),
-    path("profile/<str:pk>/get/", GetProfile.as_view(), name="get-profile"),
+    path("profile/get/", GetProfile.as_view(), name="get-profile"),
     path("creditors/", GetCreditors.as_view(), name="get-creditors"),
+    path("payment/deposit/", DepositFunds.as_view(), name="depositfunds"),
 ]

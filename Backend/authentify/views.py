@@ -195,7 +195,7 @@ class DepositFunds(CreateAPIView):
         return Response({"authorization_url": response}, status=status.HTTP_201_CREATED)
 
 
-class PaystackWebhookView(APIView):
+class PaystackWebhookView(generic.View):
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body.decode("utf-8"))
 

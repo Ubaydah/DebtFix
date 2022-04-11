@@ -124,7 +124,9 @@ REST_FRAMEWORK = {
 }
 
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.ngrok.io']
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".ngrok.io"]
+
+REDIS_URL = "redis://localhost:6379/4"
 
 
 HUEY = {

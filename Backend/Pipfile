@@ -18,6 +18,8 @@ asgiref = "*"
 pytz = "*"
 cloudinary = "*"
 requests = "*"
+huey = {extras = ["backends"], version = "*"}
+redis = "*"
 
 [dev-packages]
 

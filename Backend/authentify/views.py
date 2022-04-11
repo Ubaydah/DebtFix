@@ -2,6 +2,8 @@ import json
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.http.response import JsonResponse
+from django.views import generic
 from rest_framework.generics import (
     CreateAPIView,
     UpdateAPIView,
@@ -201,4 +203,4 @@ class PaystackWebhookView(APIView):
 
         handle_webhook(data)
 
-        return Response(data={}, status=status.HTTP_200_OK)
+        return JsonResponse(data={})

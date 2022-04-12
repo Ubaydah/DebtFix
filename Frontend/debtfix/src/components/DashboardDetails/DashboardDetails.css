@@ -1,0 +1,48 @@
+.icon{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.analytics-background{
+    background: radial-gradient(104.54% 261.01% at 0% 3.17%, #573498 0%, #573498 13.12%, rgba(87, 52, 152, 0.92) 27.56%, rgba(87, 52, 152, 0.87) 40.51%, rgba(72, 27, 153, 0.88) 53.11%, #5D34A4 59.91%, #6A3ABE 67.92%, #4713A4 74.07%, #4F12BF 79.92%, #420EA3 85.5%, #560EDA 91.37%, #4002B0 98.44%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+}
+.piechart-checkbox1{
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    background-color: #573498;
+}
+.piechart-checkbox2{
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    background-color: #D38DDF;
+}
+
+.table-heading{
+    border: 2px solid rgba(58, 28, 107, 0.15);
+    color:#271B3E;
+    opacity:80%;
+    border-top-right-radius: 10px !important;
+    border-top-left-radius: 10px !important;
+}
+
+.edit, .delete, .make-payments{
+    transition: 0.5s linear;
+}
+.edit:hover{
+    color: rgb(27, 248, 27) !important;
+    font-size: 20px;
+}
+
+.delete:hover{
+    color: rgb(146, 37, 37) !important;
+    font-size: 20px;
+}
+
+.make-payments:hover{
+    color: rgb(219, 23, 219) !important;
+    font-size: 20px;
+}

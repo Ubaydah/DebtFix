@@ -1,4 +1,3 @@
-from email.policy import default
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.fields import SlugField
@@ -79,7 +78,7 @@ class Creditor(BaseClass):
     wallet = models.ForeignKey(
         Wallet, on_delete=models.CASCADE, related_name="creditors"
     )
-    name = models.CharField(_("name"), max_length=250, blank=False)
+    name = models.CharField(_("name"), max_length=250, blank=False, unique=True)
     amount_owned = models.DecimalField(
         _("amount_owned"), max_digits=11, decimal_places=3
     )
@@ -119,9 +118,13 @@ class WalletTransaction(BaseClass):
     paystack_reference = models.CharField(
         _("paystack_reference"), max_length=100, blank=False, null=True
     )
-    # destination = models.ForeignKey(
-    #     Creditor, on_delete=models.CASCADE, related_name="destination", blank=True,
-    # )
+    destination = models.ForeignKey(
+        Creditor,
+        on_delete=models.CASCADE,
+        related_name="destination",
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         return self.wallet.user.__str__()

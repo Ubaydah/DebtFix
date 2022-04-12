@@ -1,9 +1,8 @@
 import json
 from django.contrib.auth import authenticate
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.http.response import JsonResponse
-from django.views import generic
 from rest_framework.generics import (
     CreateAPIView,
     UpdateAPIView,
@@ -18,8 +17,11 @@ from .serializers import (
     CreditorSerializer,
     WalletSerializer,
     DepositFundsSerializer,
+    PayCreditorSerializer,
+    WalletTransactionSerializer,
 )
 from .tasks import handle_webhook
+from .enums import Status
 
 
 class Login(APIView):
@@ -154,9 +156,7 @@ class UpdateCreditor(UpdateAPIView):
 
         instance = self.get_object()
 
-        serializer = self.get_serializer(
-            instance, data=request.data, context={"request": request}
-        )
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
@@ -191,6 +191,55 @@ class DepositFunds(CreateAPIView):
         response = serializer.save()
         print(response)
         return Response({"authorization_url": response}, status=status.HTTP_201_CREATED)
+
+
+class PayCreditorView(CreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = PayCreditorSerializer
+    queryset = WalletTransaction.objects.all()
+
+    def post(self, request, *args, **kwargs):
+
+        serializer = self.get_serializer(
+            data=request.data, context={"request": request}
+        )
+        serializer.is_valid(raise_exception=True)
+        response = serializer.save()
+
+        return Response({"message": "success"})
+
+
+class WalletTransactionView(APIView):
+
+    serializer_class = WalletTransactionSerializer
+
+    def get(self, request):
+        transactions = WalletTransaction.objects.filter(wallet__user=request.user)
+        serializer = self.serializer_class(transactions, many=True)
+
+        return Response(serializer.data)
+
+
+class DashboardStatistics(APIView):
+
+    serializer_class = CreditorSerializer
+
+    def get(self, request):
+        creditors = Creditor.objects.filter(wallet__user=request.user).count()
+        creditors_paid = Creditor.objects.filter(
+            wallet__user=request.user, status=Status.PAID
+        ).count()
+        creditors_unpaid = Creditor.objects.filter(
+            wallet__user=request.user, status=Status.UNPAID
+        ).count()
+
+        response = {
+            "creditors_all": creditors,
+            "creditors_paid": creditors_paid,
+            "creditors_unpaid": creditors_unpaid,
+        }
+
+        return Response(response)
 
 
 class PaystackWebhookView(APIView):

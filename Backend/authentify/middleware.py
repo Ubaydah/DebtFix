@@ -16,7 +16,7 @@ class PaystackMiddleware:
         return response
 
     def process_view(self, request: HttpRequest, view_func, view_args, view_kwargs):
-        if view_func.__name__ == "WebhookView":
+        if view_func.__name__ == "PaystackWebhookView":
             hash = hmac.new(
                 settings.PAYSTACK_SECRET_KEY.encode("utf-8"),
                 request.body,

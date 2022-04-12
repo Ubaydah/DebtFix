@@ -46,5 +46,17 @@ class Paystack:
             logger.exception(err)
             return None
 
+    def initialize_transfer(self, payload):
+        try:
+            response = requests.post(
+                f"{settings.PAYSTACK_URL}/transfer", data=payload, headers=self.headers
+            )
+            if response.status_code == 200:
+                response = response.json()
+                return response["data"]["reference"]
+        except RequestException as err:
+            logger.exception(err)
+            return None
+
 
 paystack = Paystack()

@@ -2,10 +2,12 @@ from django.db.models import Sum
 
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
+from rest_framework.exceptions import ValidationError
 
+from .enums import Status, TransactionStatus, TransactionType
 from .models import CustomUser, Creditor, Profile, Wallet, WalletTransaction
 from .services import paystack
-from .utils import is_amount
+from .utils import is_amount, get_balance, is_valid_creditor
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -41,7 +43,6 @@ class ProfileSerializer(serializers.ModelSerializer):
         return profile
 
     def update(self, instance, validated_data):
-        user = self.context["request"].user
 
         instance.firstname = validated_data["firstname"]
         instance.lastname = validated_data["lastname"]
@@ -50,7 +51,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
         instance.save()
 
-        profile = Profile.objects.update(user=user, **validated_data)
+        profile = Profile.objects.update(**validated_data)
 
         return profile
 
@@ -61,13 +62,19 @@ class WalletSerializer(serializers.ModelSerializer):
 
     def get_balance(self, obj):
         bal = WalletTransaction.objects.filter(
-            wallet=obj, transaction_status="SUCCESS"
+            wallet=obj, transaction_status=TransactionStatus.SUCCESS
         ).aggregate(Sum("amount"))["amount__sum"]
         return bal
 
     class Meta:
         model = Wallet
         fields = ["id", "balance"]
+
+
+class WalletTransactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WalletTransaction
+        fields = "__all__"
 
 
 class CreditorSerializer(serializers.ModelSerializer):
@@ -101,8 +108,6 @@ class CreditorSerializer(serializers.ModelSerializer):
         return creditor
 
     def update(self, instance, validated_data):
-        user = self.context["request"].user
-        wallet = Wallet.objects.get(user=user)
 
         instance.name = validated_data["name"]
         instance.amount_owned = validated_data["amount_owned"]
@@ -110,17 +115,18 @@ class CreditorSerializer(serializers.ModelSerializer):
         instance.account_number = validated_data["account_number"]
 
         instance.save()
-        payload = {
-            "type": "nuban",
-            "name": instance.name,
-            "account_number": instance.account_number,
-            "bank_code": instance.bank_code,
-        }
-        recipient_code = paystack.create_transfer_recipient(payload)
-        creditor = Creditor.objects.update(
-            wallet=wallet, recipient_code=recipient_code, **validated_data
-        )
-        return creditor
+
+        # payload = {
+        #     "type": "nuban",
+        #     "name": instance.name,
+        #     "account_number": instance.account_number,
+        #     "bank_code": instance.bank_code,
+        # }
+        # recipient_code = paystack.create_transfer_recipient(payload)
+        # Creditor.objects.update(
+        #     recipient_code=recipient_code, **validated_data
+        # )
+        return instance
 
 
 class DepositFundsSerializer(serializers.ModelSerializer):
@@ -135,7 +141,7 @@ class DepositFundsSerializer(serializers.ModelSerializer):
     def validate_email(self, value):
         if CustomUser.objects.filter(email=value).exists():
             return value
-        raise serializers.ValidationError({"detail": "Email not found"})
+        raise ValidationError({"detail": "Email not found"})
 
     def save(self):
         user = self.context["request"].user
@@ -152,8 +158,54 @@ class DepositFundsSerializer(serializers.ModelSerializer):
             wallet=wallet,
             amount=validated_data["amount"],
             narration=validated_data["narration"],
-            transaction_type="deposit",
+            transaction_type=TransactionType.DEPOSIT,
             paystack_reference=txn_ref,
         )
 
         return url
+
+
+class PayCreditorSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(max_length=200)
+    amount = serializers.IntegerField(validators=[is_amount])
+
+    class Meta:
+        model = WalletTransaction
+        fields = ["name", "amount", "narration"]
+
+    def validate_name(self, value):
+        creditor = Creditor.objects.get(name=value)
+        if creditor.status == Status.PAID:
+            raise serializers.ValidationError({"detail": "creditor's debt paid"})
+        else:
+            return value
+
+    def save(self):
+        user = self.context["request"].user
+        wallet = Wallet.objects.get(user=user)
+        validated_data = self.validated_data
+        bal = get_balance(wallet)
+
+        if bal < validated_data["amount"]:
+            raise serializers.ValidationError({"detail": "Insufficient funds"})
+        else:
+            creditor = Creditor.objects.get(name=validated_data["name"])
+            recipient_code = creditor.recipient_code
+            payload = {
+                "source": "balance",
+                "amount": validated_data["amount"],
+                "recipient": recipient_code,
+                "currency": "NGN",
+            }
+            reference = paystack.initialize_transfer(payload)
+
+            WalletTransaction.objects.create(
+                wallet=wallet,
+                amount=validated_data["amount"],
+                narration=validated_data["narration"],
+                transaction_type=TransactionType.CREDIT,
+                paystack_reference=reference,
+                destination=creditor,
+            )
+
+            return creditor

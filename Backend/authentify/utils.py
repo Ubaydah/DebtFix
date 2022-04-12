@@ -5,8 +5,9 @@ from .enums import TransactionStatus
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
+
 def is_amount(value):
-    if value <= 0 :
+    if value <= 0:
         raise serializers.ValidationError({"detail": "Invalid Amount"})
     return value
 
@@ -26,3 +27,7 @@ def is_valid_creditor(value):
 
     except Creditor.DoesNotExist:
         return ValidationError({"detail": "creditor not found"})
+
+
+def count():
+    pass

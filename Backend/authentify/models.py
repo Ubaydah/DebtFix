@@ -82,7 +82,7 @@ class Creditor(BaseClass):
     wallet = models.ForeignKey(
         Wallet, on_delete=models.CASCADE, related_name="creditors"
     )
-    name = models.CharField(_("name"), max_length=250, blank=False, unique=True)
+    name = models.CharField(_("name"), max_length=250, blank=False)
     amount_owned = models.DecimalField(
         _("amount_owned"), max_digits=11, decimal_places=3
     )

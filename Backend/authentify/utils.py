@@ -8,7 +8,7 @@ from rest_framework.exceptions import ValidationError
 
 def is_amount(value):
     if value <= 0:
-        raise serializers.ValidationError({"detail": "Invalid Amount"})
+        return serializers.ValidationError({"detail": "Invalid Amount"})
     return value
 
 

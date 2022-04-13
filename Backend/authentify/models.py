@@ -5,7 +5,7 @@ from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.template.defaultfilters import slugify
-
+from django.core.validators import MaxLengthValidator
 
 from .enums import Banks, Gender, Status, TransactionType, TransactionStatus
 from .managers import CustomUserManager
@@ -58,7 +58,11 @@ class Profile(BaseClass):
     gender = models.CharField(
         _("gender"), max_length=250, blank=False, choices=Gender.choices
     )
-    phone_number = models.IntegerField(_("phone_number"), null=False)
+    phone_number = models.IntegerField(
+        _("phone_number"),
+        validators=[MaxLengthValidator(20)],
+        null=False,
+    )
 
     def __str__(self):
         return f"{self.user.username} Profile"

@@ -1,4 +1,4 @@
-Welcome to DebtFix Backend API
+## Welcome to DebtFix Backend API
 
 This is the back end repository of the DebtFix App. An app that manages users debts and help them save better . The repository contains all the APIs used for the app.
 

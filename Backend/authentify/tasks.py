@@ -33,7 +33,7 @@ def handle_webhook(payload: dict):
 
             creditor = Creditor.objects.get(name=transaction.destination.name)
             if creditor.amount_owned == amount:
-                creditor.status = Status
+                creditor.status = Status.PAID
                 creditor.amount_owned = 0
                 creditor.save()
             else:

@@ -82,7 +82,7 @@ class Creditor(BaseClass):
     amount_owned = models.DecimalField(
         _("amount_owned"), max_digits=11, decimal_places=3
     )
-    date_due = models.DateTimeField(_("date_due"), default=timezone.now())
+    date_due = models.DateTimeField(_("date_due"), default=timezone.now)
     bank_code = models.CharField(
         _("bank_code"), choices=Banks.choices, max_length=6, null=False, blank=False
     )

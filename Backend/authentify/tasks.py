@@ -2,13 +2,13 @@ import logging
 from .models import WalletTransaction, Creditor
 from .enums import Status, TransactionStatus
 
-from huey.contrib.djhuey import db_task
 
 
-logger = logging.getLogger("huey")
+
+logger = logging.getLogger(__name__)
 
 
-@db_task()
+
 def handle_webhook(payload: dict):
     logger.info(f"Handling webhook of event -> {payload['event']}")
 

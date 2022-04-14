@@ -115,32 +115,25 @@ class CreditorSerializer(serializers.ModelSerializer):
             return creditor
 
     def update(self, instance, validated_data):
-        user = self.context["request"].user
-        wallet = Wallet.objects.get(user=user)
 
-        if Creditor.objects.filter(name=validated_data["name"], wallet=wallet).exists():
-            raise serializers.ValidationError(
-                {"detail": "Creditor with this name exists"}
-            )
-        else:
-            instance.name = validated_data["name"]
-            instance.amount_owned = validated_data["amount_owned"]
-            instance.bank_code = validated_data["bank_code"]
-            instance.account_number = validated_data["account_number"]
+        instance.name = validated_data["name"]
+        instance.amount_owned = validated_data["amount_owned"]
+        instance.bank_code = validated_data["bank_code"]
+        instance.account_number = validated_data["account_number"]
 
-            instance.save()
+        instance.save()
 
-            # payload = {
-            #     "type": "nuban",
-            #     "name": instance.name,
-            #     "account_number": instance.account_number,
-            #     "bank_code": instance.bank_code,
-            # }
-            # recipient_code = paystack.create_transfer_recipient(payload)
-            # Creditor.objects.update(
-            #     recipient_code=recipient_code, **validated_data
-            # )
-            return instance
+        # payload = {
+        #     "type": "nuban",
+        #     "name": instance.name,
+        #     "account_number": instance.account_number,
+        #     "bank_code": instance.bank_code,
+        # }
+        # recipient_code = paystack.create_transfer_recipient(payload)
+        # Creditor.objects.update(
+        #     recipient_code=recipient_code, **validated_data
+        # )
+        return instance
 
 
 class DepositFundsSerializer(serializers.ModelSerializer):

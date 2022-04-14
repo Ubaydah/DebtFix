@@ -1,0 +1,24 @@
+.settings-input{
+    background-color: #c7c1d160;
+    border-radius: 7px;
+    padding: 4px;
+    color:#8872AC;
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: 600;
+    font-family: Poppins;
+}
+.settings-button{
+    
+    margin: 1rem auto;
+    background-color: #2A0B9C;
+    color: white;
+    border-radius: 10px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+    font-family: Poppins;
+    width: 185px;
+    height: 50px;
+}
+

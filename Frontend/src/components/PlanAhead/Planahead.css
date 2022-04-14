@@ -1,0 +1,11 @@
+.button-create-now{
+    font-family:'Poppins';
+    font-size: 24px;
+    color: #3A1C6B;
+     line-height: 36px;
+     font-weight: 400;
+     padding: 10px 20px;
+     background-color: #FFFFFF;
+     border-radius: 10px;
+     margin: 20px;
+}

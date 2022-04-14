@@ -1,0 +1,68 @@
+
+.signin-container{
+    margin:  3rem 0;
+    
+}
+.signin-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.signin-form label{
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 18px;
+    letter-spacing: 0em;
+    color: #767b7b;
+    margin: 5px;
+   
+}
+.signin-form input{
+    background-color: #F6f6f6;
+    width: 100%;
+    height: 60px;
+    border-radius: 15px;
+}
+
+.signin-form-forgot-password label{
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 24px;
+    letter-spacing: 0em;
+    color: #1F1F1F;
+    position: relative;
+    bottom: 4px;
+    left: 4px;
+   
+}
+
+.signin-form-checkbox{
+    width: 22px;
+    height: 22px;
+    border: 1px solid #b2b2b2;
+   
+}
+
+.signin-button{
+    font-family:'Poppins';
+    font-size: 16px;
+    color: white;
+     line-height: 24px;
+     font-weight: 600;
+     background-color: #643ea1;
+     border-radius: 15px;
+     width: 100%;
+     padding: 20px;
+     margin-bottom: 2rem;
+     
+}
+
+.signin-user{
+    font-family:'Poppins';
+    font-size: 20px;
+    font-weight:600;
+    color: #3A1C6B;
+    line-height: 36px;
+}

@@ -122,17 +122,6 @@ class CreditorSerializer(serializers.ModelSerializer):
         instance.account_number = validated_data["account_number"]
 
         instance.save()
-
-        # payload = {
-        #     "type": "nuban",
-        #     "name": instance.name,
-        #     "account_number": instance.account_number,
-        #     "bank_code": instance.bank_code,
-        # }
-        # recipient_code = paystack.create_transfer_recipient(payload)
-        # Creditor.objects.update(
-        #     recipient_code=recipient_code, **validated_data
-        # )
         return instance
 
 

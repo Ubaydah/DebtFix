@@ -112,11 +112,21 @@ HUEY = {
 #         "KEY_PREFIX": "example"
 #     }
 # }
-REDIS_URL = redis.Redis(
-    host="redis-15132.c275.us-east-1-4.ec2.cloud.redislabs.com:15132",
-    port="6379",
-    password="5GaYPkgBjlKYKY8IqKJF6KVrzUPwGUKI",
-)
+# REDIS_URL = redis.Redis(
+#     host="redis-15132.c275.us-east-1-4.ec2.cloud.redislabs.com:15132",
+#     port="6379",
+#     password="5GaYPkgBjlKYKY8IqKJF6KVrzUPwGUKI",
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "PASSWORD": "5GaYPkgBjlKYKY8IqKJF6KVrzUPwGUKI",
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases

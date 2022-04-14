@@ -21,6 +21,7 @@ requests = "*"
 redis = "*"
 pyngrok = "*"
 huey = "*"
+django-redis = "*"
 
 [dev-packages]
 

@@ -36,7 +36,7 @@ urlpatterns = [
     path("payment/transactions/", WalletTransactionView.as_view(), name="get-transactions"),
     path("payment/statistics/", DashboardStatistics.as_view(), name="statistics"),
     path(
-        "payments/paystack/webhook/",
+        "payment/paystack/webhook/",
         PaystackWebhookView.as_view(),
         name="paystack-webhook",
     ),

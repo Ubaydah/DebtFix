@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
+    "huey.contrib.djhuey",
     "authentify.apps.AuthentifyConfig",
 ]
 
@@ -83,6 +84,35 @@ AUTH_USER_MODEL = "authentify.CustomUser"
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+REDIS_URL = "redis-15132.c275.us-east-1-4.ec2.cloud.redislabs.com:15132"
+
+HUEY = {
+    "name": "giveaway",
+    "huey_class": "huey.PriorityRedisExpireHuey",
+    "immediate": False,
+    "utc": True,
+    "consumer": {
+        "workers": 2,
+        "worker_type": "thread",
+        "initial_delay": 0.1,
+        "backoff": 1.15,
+        "max_delay": 10.0,
+        "scheduler_interval": 1,
+        "periodic": True,
+        "check_worker_health": True,
+    },
+}
+
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": "redis://127.0.0.1:6379/1",
+#         "OPTIONS": {
+#             "CLIENT_CLASS": "django_redis.client.DefaultClient"
+#         },
+#         "KEY_PREFIX": "example"
+#     }
+# }
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases

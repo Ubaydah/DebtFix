@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import django_heroku
 import dj_database_url
 import os
-
+import redis
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -84,7 +84,6 @@ AUTH_USER_MODEL = "authentify.CustomUser"
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-REDIS_URL = "redis-15132.c275.us-east-1-4.ec2.cloud.redislabs.com:15132"
 
 HUEY = {
     "name": "giveaway",
@@ -113,6 +112,11 @@ HUEY = {
 #         "KEY_PREFIX": "example"
 #     }
 # }
+REDIS_URL = redis.Redis(
+    host="redis-15132.c275.us-east-1-4.ec2.cloud.redislabs.com:15132",
+    port="6379",
+    password="5GaYPkgBjlKYKY8IqKJF6KVrzUPwGUKI",
+)
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases

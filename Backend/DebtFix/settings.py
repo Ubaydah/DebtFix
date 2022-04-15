@@ -85,29 +85,22 @@ AUTH_USER_MODEL = "authentify.CustomUser"
 CORS_ALLOW_ALL_ORIGINS = True
 
 
-# HUEY = {
-#     "name": "giveaway",
-#     "huey_class": "huey.PriorityRedisExpireHuey",
-#     "immediate": False,
-#     "utc": True,
-#     'connection': {
-#         # 'host': 'debt-fix',
-#         # 'port': 6379,
-#         # 'db': 0,
-#         'read_timeout': 1,  # If not polling (blocking pop), use timeout.
-#         'url': "redis-15132.c275.us-east-1-4.ec2.cloud.redislabs.com:15132"
-#     },
-#     "consumer": {
-#         "workers": 2,
-#         "worker_type": "thread",
-#         "initial_delay": 0.1,
-#         "backoff": 1.15,
-#         "max_delay": 10.0,
-#         "scheduler_interval": 1,
-#         "periodic": True,
-#         "check_worker_health": True,
-#     },
-# }
+HUEY = {
+    "name": "giveaway",
+    "huey_class": "huey.PriorityRedisExpireHuey",
+    "immediate": False,
+    "utc": True,
+    "consumer": {
+        "workers": 2,
+        "worker_type": "thread",
+        "initial_delay": 0.1,
+        "backoff": 1.15,
+        "max_delay": 10.0,
+        "scheduler_interval": 1,
+        "periodic": True,
+        "check_worker_health": True,
+    },
+}
 
 from huey import RedisHuey
 from redis import ConnectionPool
@@ -119,21 +112,6 @@ pool = ConnectionPool(
     max_connections=20,
 )
 HUEY = RedisHuey("authentify", connection_pool=pool)
-
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django_redis.cache.RedisCache",
-#         "LOCATION": "redis://127.0.0.1:6379/1",
-#         "OPTIONS": {
-#             "CLIENT_CLASS": "django_redis.client.DefaultClient"
-#         },
-#         "KEY_PREFIX": "example"
-#     }
-# }
-# REDIS_URL = redis.Redis(
-#     host="redis-15132.c275.us-east-1-4.ec2.cloud.redislabs.com:15132",
-#     port="6379",
-#     password="5GaYPkgBjlKYKY8IqKJF6KVrzUPwGUKI",
 
 
 # Database

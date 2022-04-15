@@ -189,7 +189,6 @@ class DepositFunds(CreateAPIView):
         )
         serializer.is_valid(raise_exception=True)
         response = serializer.save()
-        print(response)
         return Response({"authorization_url": response}, status=status.HTTP_201_CREATED)
 
 

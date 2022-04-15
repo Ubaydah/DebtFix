@@ -1,6 +1,7 @@
 release: python manage.py makemigrations
 release: python manage.py migrate
 
+worker: python manage.py run_huey
 
 web: gunicorn --pythonpath DebtFix DebtFix.wsgi --log-file -
 

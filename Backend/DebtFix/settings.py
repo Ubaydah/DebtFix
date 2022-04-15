@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
-    #"huey.contrib.djhuey",
+    "huey.contrib.djhuey",
     "authentify.apps.AuthentifyConfig",
 ]
 
@@ -90,6 +90,13 @@ CORS_ALLOW_ALL_ORIGINS = True
 #     "huey_class": "huey.PriorityRedisExpireHuey",
 #     "immediate": False,
 #     "utc": True,
+#     'connection': {
+#         # 'host': 'debt-fix',
+#         # 'port': 6379,
+#         # 'db': 0,
+#         'read_timeout': 1,  # If not polling (blocking pop), use timeout.
+#         'url': "redis-15132.c275.us-east-1-4.ec2.cloud.redislabs.com:15132"
+#     },
 #     "consumer": {
 #         "workers": 2,
 #         "worker_type": "thread",
@@ -101,6 +108,17 @@ CORS_ALLOW_ALL_ORIGINS = True
 #         "check_worker_health": True,
 #     },
 # }
+
+from huey import RedisHuey
+from redis import ConnectionPool
+
+pool = ConnectionPool(
+    host="redis-15132.c275.us-east-1-4.ec2.cloud.redislabs.com",
+    port=15132,
+    password="5GaYPkgBjlKYKY8IqKJF6KVrzUPwGUKI",
+    max_connections=20,
+)
+HUEY = RedisHuey("authentify", connection_pool=pool)
 
 # CACHES = {
 #     "default": {
@@ -116,7 +134,6 @@ CORS_ALLOW_ALL_ORIGINS = True
 #     host="redis-15132.c275.us-east-1-4.ec2.cloud.redislabs.com:15132",
 #     port="6379",
 #     password="5GaYPkgBjlKYKY8IqKJF6KVrzUPwGUKI",
-
 
 
 # Database

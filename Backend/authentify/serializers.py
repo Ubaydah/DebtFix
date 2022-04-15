@@ -61,9 +61,11 @@ class WalletSerializer(serializers.ModelSerializer):
     balance = serializers.SerializerMethodField()
 
     def get_balance(self, obj):
-        bal = WalletTransaction.objects.filter(
-            wallet=obj, transaction_status=TransactionStatus.SUCCESS
-        ).aggregate(Sum("amount"))["amount__sum"]
+        bal = (
+            WalletTransaction.objects.select_related("wallet")
+            .filter(wallet=obj, transaction_status=TransactionStatus.SUCCESS)
+            .aggregate(Sum("amount"))["amount__sum"]
+        )
         return bal
 
     class Meta:
@@ -95,7 +97,7 @@ class CreditorSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = self.context["request"].user
-        wallet = Wallet.objects.get(user=user)
+        wallet = Wallet.objects.select_related("user").get(user=user)
 
         if Creditor.objects.filter(name=validated_data["name"], wallet=wallet).exists():
             raise serializers.ValidationError(
@@ -141,7 +143,8 @@ class DepositFundsSerializer(serializers.ModelSerializer):
 
     def save(self):
         user = self.context["request"].user
-        wallet = Wallet.objects.get(user=user)
+        wallet = Wallet.objects.select_related("user").get(user=user)
+
         validated_data = self.validated_data
         payload = {
             "amount": validated_data["amount"],
@@ -171,8 +174,11 @@ class PayCreditorSerializer(serializers.ModelSerializer):
 
     def validate_name(self, value):
         user = self.context["request"].user
-        wallet = Wallet.objects.get(user=user)
-        creditor = Creditor.objects.get(name=value, wallet=wallet)
+        wallet = Wallet.objects.select_related("user").get(user=user)
+
+        creditor = Creditor.objects.select_related("wallet").get(
+            name=value, wallet=wallet
+        )
         if creditor.status == Status.PAID:
             raise serializers.ValidationError({"detail": "creditor's debt paid"})
         else:
@@ -180,7 +186,8 @@ class PayCreditorSerializer(serializers.ModelSerializer):
 
     def save(self):
         user = self.context["request"].user
-        wallet = Wallet.objects.get(user=user)
+        wallet = Wallet.objects.select_related("user").get(user=user)
+
         validated_data = self.validated_data
         bal = get_balance(wallet)
 

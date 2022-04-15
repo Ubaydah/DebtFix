@@ -3,10 +3,7 @@ from .models import WalletTransaction, Creditor
 from .enums import Status, TransactionStatus
 
 
-
-
 logger = logging.getLogger(__name__)
-
 
 
 def handle_webhook(payload: dict):
@@ -15,7 +12,7 @@ def handle_webhook(payload: dict):
     if payload["event"] == "charge.success":
         transaction_ref = payload["data"]["reference"]
         try:
-            transaction = WalletTransaction.objects.get(
+            transaction = WalletTransaction.objects.select_related("wallet").get(
                 paystack_reference=transaction_ref
             )
             transaction.transaction_status = TransactionStatus.SUCCESS
@@ -27,14 +24,16 @@ def handle_webhook(payload: dict):
         try:
             transaction_ref = payload["data"]["reference"]
             amount = payload["data"]["amount"]
-            transaction = WalletTransaction.objects.get(
+            transaction = WalletTransaction.objects.select_related("destination").get(
                 paystack_reference=transaction_ref
             )
             transaction.transaction_status = TransactionStatus.SUCCESS
             transaction.amount = -amount
             transaction.save()
 
-            creditor = Creditor.objects.get(name=transaction.destination.name)
+            creditor = Creditor.objects.select_related("wallet").get(
+                name=transaction.destination.name
+            )
             if creditor.amount_owned == amount:
                 creditor.status = Status.PAID
                 creditor.amount_owned = 0

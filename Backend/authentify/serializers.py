@@ -99,9 +99,11 @@ class CreditorSerializer(serializers.ModelSerializer):
         user = self.context["request"].user
         wallet = Wallet.objects.select_related("user").get(user=user)
 
-        if Creditor.objects.filter(name=validated_data["name"], wallet=wallet).exists():
+        if Creditor.objects.filter(
+            name=validated_data["name"], wallet=wallet, status=Status.UNPAID
+        ).exists():
             raise serializers.ValidationError(
-                {"detail": "Creditor with this name exists"}
+                {"detail": "Creditor unpaid with this name exists"}
             )
         else:
             payload = {

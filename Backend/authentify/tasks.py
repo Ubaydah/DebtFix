@@ -21,7 +21,7 @@ def handle_webhook(payload: dict):
         except WalletTransaction.DoesNotExist:
             logger.error(f"Unable to find transaction with ID -> {transaction_ref}")
 
-    if payload["event"] == "transfer.success":
+    elif payload["event"] == "transfer.success":
         try:
             transaction_ref = payload["data"]["reference"]
             amount = payload["data"]["amount"]

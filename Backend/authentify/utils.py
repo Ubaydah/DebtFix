@@ -1,6 +1,6 @@
 from .models import WalletTransaction, Creditor
 from django.db.models import Sum
-from .enums import TransactionStatus
+from .enums import TransactionStatus, Status
 
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
@@ -27,7 +27,3 @@ def is_valid_creditor(value):
 
     except Creditor.DoesNotExist:
         return ValidationError({"detail": "creditor not found"})
-
-
-def count():
-    pass

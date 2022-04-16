@@ -194,7 +194,9 @@ class PayCreditorSerializer(serializers.ModelSerializer):
         if bal < validated_data["amount"]:
             raise serializers.ValidationError({"detail": "Insufficient funds"})
         else:
-            creditor = Creditor.objects.get(name=validated_data["name"], wallet=wallet)
+            creditor = Creditor.objects.select_related("wallet").get(
+                name=validated_data["name"], wallet=wallet
+            )
             recipient_code = creditor.recipient_code
             payload = {
                 "source": "balance",

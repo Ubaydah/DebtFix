@@ -8,10 +8,6 @@ logger = logging.getLogger("huey")
 
 @db_task()
 def change_to_success(transaction, amount):
-    transaction.transaction_status = TransactionStatus.SUCCESS
-    transaction.amount = -amount
-    transaction.save()
-
     creditor = Creditor.objects.select_related("wallet").get(
         name=transaction.destination.name
     )
@@ -46,6 +42,9 @@ def handle_webhook(payload: dict):
             transaction = WalletTransaction.objects.select_related("wallet").get(
                 paystack_reference=transaction_ref
             )
+            transaction.transaction_status = TransactionStatus.SUCCESS
+            transaction.amount = -amount
+            transaction.save()
 
             change_to_success(transaction, amount)
 

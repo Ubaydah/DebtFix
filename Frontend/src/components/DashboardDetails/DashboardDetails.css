@@ -22,12 +22,13 @@
 }
 
 .table-heading{
-    border: 2px solid rgba(58, 28, 107, 0.15);
     color:#271B3E;
-    opacity:80%;
-    border-top-right-radius: 10px !important;
-    border-top-left-radius: 10px !important;
+    border: 2px solid #3A1C6B;
+    
 }
+
+Tr:nth-child(even) {background-color: #f2f2f2;}
+
 
 .edit, .delete, .make-payments{
     transition: 0.5s linear;

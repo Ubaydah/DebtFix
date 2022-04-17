@@ -18,22 +18,56 @@
   /* Modal Content/Box */
   .modal-content {
     background-color: #fefefe;
-    margin: 10% auto; /* 15% from the top and centered */
+    margin: 5% auto; /* 15% from the top and centered */
     width: 25%; /* Could be more or less, depending on screen size */
     border-radius: 10px;
     transition: all 0.3s ease-out;
+    padding: 15px;
   }
+
+  .profile-container{
+    cursor: pointer;
+    margin: 0 auto;
+
+}
+.profile-btn{
+  padding: 10px 25px;
+    display: flex;
+    align-items: center;
+    font-family: Poppins;
+    color: white;
+    background-color: #2A0B9C;
+    border-radius: 10px;
+
+}
   
+
+.add-creditor-btn-save{
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    font-family: Poppins;
+    color: white;
+    background-color: #2A0B9C;
+    border-radius: 10px;
+    cursor: pointer;
+
+}
+.add-creditor-btn-close{
+   padding: 7px 35px;
+    display: flex;
+    align-items: center;
+    font-family: Poppins;
+    color: #2A0B9C;
+    border: 2px solid #2A0B9C;
+    background-color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
   /* The Close Button */
   
 
-  #myBtn{
-      background-color: aquamarine;
-  }
-
-  modal-container{
-      background-color: antiquewhite;
-  }
+  
 
   @keyframes myAnimation{
     0%{
@@ -73,16 +107,13 @@
     0% { transform: translateY(0); }
     100% { transform: translateY(-100%);}
 }
-.profile-container{
-    cursor: pointer;
 
-}
 .modal-profile-update{
     background-color: #fefefe;
     margin: 5% auto; /* 15% from the top and centered */
     width: 30%; /* Could be more or less, depending on screen size */
     border-radius: 10px;
-    padding: 40px;
+    padding: 20px;
     transition: all 0.3s ease-out;
 }
 
@@ -93,6 +124,8 @@
     border-radius: 10px;
     outline: none;
     padding: 15px;
+    font-size: 13px;
+    
 }
 
 .profile-label{
@@ -102,4 +135,32 @@
  line-height: 16px;
  font-family: inter;
  padding: 5px 0;
+}
+.modal-pay-creditor{
+  background-color: #fefefe;
+    margin: 5% auto; /* 15% from the top and centered */
+    width: 30%; /* Could be more or less, depending on screen size */
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.3s ease-out;
+}
+
+.external-url{
+  font-size: 15px;
+  font-family: Poppins;
+  font-weight: 400;
+  font-style: italic;
+  color: green;
+}
+.external-url:hover{
+  color: rgb(20, 30, 4);
+}
+
+.success{
+  color: green;
+  font-size: 15px;
+}
+.failure{
+  color: red;
+  font-size: 15px;
 }

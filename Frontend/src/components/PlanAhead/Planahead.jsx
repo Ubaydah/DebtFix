@@ -1,6 +1,7 @@
 import React from 'react'
 import {Box, Flex,Text, Center} from '@chakra-ui/react'
 import './Planahead.css'
+import { Link } from 'react-router-dom'
 const Planahead = () => {
   return (
     <>
@@ -30,7 +31,7 @@ const Planahead = () => {
             Whether debts, bills or monetary promises, 
             DebtFix will fix it all with just one click.
           </Text>
-          <button  className='button-create-now'>Create free Account</button>
+          <Link to='/signup'><button  className='button-create-now'>Create free Account</button></Link>
          
       </Box>
     </Center>

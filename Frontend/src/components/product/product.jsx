@@ -29,10 +29,10 @@ const Product = () => {
        >Save up, earn interest and pay up pending bills.</Text>
       </Box>
       <SimpleGrid minChildWidth='160px' spacing='50px' w='100%'>
-         <Box><img src={frame2}></img></Box>
-         <Box><img src={frame3}></img></Box>
-         <Box><img src={frame4}></img></Box>
-         <Box><img src={frame5}></img></Box>
+         <Box><img src={frame2} alt=''></img></Box>
+         <Box><img src={frame3} alt=''></img></Box>
+         <Box><img src={frame4} alt=''></img></Box>
+         <Box><img src={frame5} alt=''></img></Box>
       </SimpleGrid>
     </Flex>
     </>

@@ -26,32 +26,41 @@ const Signin = () => {
         },
         body: JSON.stringify(credentials)
       })
-        .then(data => data.json())
+        .then(data =>{ 
+          return data.json()
+        })
+        
      }
       //setIspending(false)
       //navigate('/')
     
     const handleSubmit = async (e) =>{
+      setAlert({link: "", text:''})
       e.preventDefault();
       const details = {email, password}
-      setIspending(true)
-      const response = await loginUser(details)
-      console.log(response)
-      if ('token' in response) {
-        console.log("successful")
-        
-        
-          console.log('SUCCESS')
-          localStorage.setItem('accessToken', response.token);
-          localStorage.setItem('useremail', JSON.stringify(response.email));
-          localStorage.setItem('ID', JSON.stringify(response.id));
-          localStorage.setItem('username', JSON.stringify(response.username));
-          navigate("/profile", { replace: true })
-      } else{
-        setAlert({link: "Signup Instead?", text:`Invalid login details`})
-        //swal('Failed',response.message,'error')
-
+      try {
+        const response = await loginUser(details)
+        if ('token' in response) {
+          //console.log("successful")
+            console.log('SUCCESS')
+            localStorage.setItem('accessToken', response.token);
+            localStorage.setItem('useremail', JSON.stringify(response.email));
+            localStorage.setItem('ID', JSON.stringify(response.id));
+            localStorage.setItem('username', JSON.stringify(response.username));
+            setPassword('')
+            setEmail('')
+            navigate("/profile/dashboard", { replace: true })
+        } else{
+          console.log("erorrrrrrrr")
+          setAlert({link: "Signup Instead?", text:`Invalid login details`})
+         
+        }
+        console.log(response)
+      } catch (error) {
+        console.log('erorrrrrrrrr')
+        setAlert({link: 'Signup instead?', text: 'invalid login details'})
       }
+      
     }
      
 
@@ -102,7 +111,7 @@ const Signin = () => {
                 />
              </form>
           </Box>
-          <Flex m='3rem 0'>
+          <Flex m='1rem 0'>
             <form className='signin-form-forgot-password'>
               <input type='checkbox' className='signin-form-checkbox'/>
               <label>Remember me</label>
@@ -117,8 +126,8 @@ const Signin = () => {
             >Forgot Password</Text>
           </Flex>
           <Flex flexWrap='wrap' alignItems='center' marginBottom={10}>
-            <Text color='red' marginRight={5}> {alert.text}</Text>
-            <Text ><Link  className='signin-user' to='/signup'>{alert.link}</Link></Text>
+            <Text fontSize='15px' fontFamily='Poppins' color='red' marginRight={2}> {alert.text}</Text>
+            <Text fontSize='15px'><Link className='signin-user' to='/signup'>{alert.link}</Link></Text>
           </Flex>
           <Box textAlign='center'>
               <button onClick={handleSubmit} className='signin-button'>Sign in</button>

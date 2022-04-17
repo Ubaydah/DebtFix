@@ -1,6 +1,6 @@
 
 .signin-container{
-    margin:  3rem 0;
+    margin:  1rem 0;
     
 }
 .signin-form{
@@ -21,8 +21,11 @@
 .signin-form input{
     background-color: #F6f6f6;
     width: 100%;
-    height: 60px;
+    height: 50px;
     border-radius: 15px;
+    padding: 20px;
+    font-size: 15px;
+    font-family: Poppins;
 }
 
 .signin-form-forgot-password label{
@@ -55,14 +58,14 @@
      border-radius: 15px;
      width: 100%;
      padding: 20px;
-     margin-bottom: 2rem;
+     margin-bottom: 1rem;
      
 }
 
 .signin-user{
     font-family:'Poppins';
-    font-size: 20px;
-    font-weight:600;
-    color: #3A1C6B;
+     font-weight:600;
+    color: #6137a3;
     line-height: 36px;
+    font-style: italic;
 }

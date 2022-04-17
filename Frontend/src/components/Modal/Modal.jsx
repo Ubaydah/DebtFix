@@ -2,9 +2,13 @@ import React, {useState} from 'react'
 import {Box, Flex, SimpleGrid, Text, Icon} from '@chakra-ui/react'
 import './Modal.css'
 import { AiOutlineArrowRight } from 'react-icons/ai'
-import Frameprofile from '../../Images/Frame 632.svg'
+import welcomeImg from '../../Images/Welcome.png'
 import { GetEndpoint} from '../../services/Accessdetails'
 const ModalUser = () => {
+
+    const username = JSON.parse(localStorage.getItem('username'))
+
+
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
     const [phone_number, setPhonenumber] = useState('')
@@ -17,10 +21,10 @@ const ModalUser = () => {
         setModal(false)
         setNextModal(true)
     }
-    const clearModal =()=>{
+    const  clearModal = async(e)=>{
         const details = { firstname: firstname, lastname: lastname, gender:gender, phone_number:phone_number}
         console.log(details)
-        const createProfile = GetEndpoint(details, url)
+        const createProfile = await GetEndpoint(details, url)
         console.log(createProfile)
         setNextModal(false)
     }
@@ -33,7 +37,25 @@ return (
     <button id="myBtn">Open Modal</button>
     <div id="myModal" class="modal">
         <div className={modal? "modal-content ModalOpen" : "modal-content ModalClosed"}>
-            <Box onClick={editProfile}><img className='profile-container' src={Frameprofile}></img></Box>
+            <Box w='12rem'h='12rem'  m='0 auto' objectFit='cover' ><img className='welcome-img' src={welcomeImg}></img></Box>
+             <Text 
+             textAlign='center'
+             fontFamily='Volkhov'
+             fontWeight='700'
+             fontSize='20px'
+             color='#000000'
+             textTransform='capitalize'
+             >Welcome onboard {username}!</Text>
+                 
+            <Text 
+             textAlign='center'
+             fontFamily='Poppins'
+             fontWeight='300'
+             fontSize='16px'
+             color='#000000'
+             pb='5px'
+             >Lets get to know you better</Text>
+             <Box m='10px 60px' onClick={editProfile}><button className='profile-btn'>Add Creditor <AiOutlineArrowRight/> </button></Box>
         </div>
     </div>
     </div>

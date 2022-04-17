@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 import {Box, Flex, SimpleGrid, Text, Icon, Select, Button} from '@chakra-ui/react'
 //import './ModalAddCreditor.css'
-import { AiOutlineArrowRight } from 'react-icons/ai'
-import Frameprofile from '../../Images/Frame 632.svg'
+import { AiOutlineArrowRight, AiOutlineClose } from 'react-icons/ai'
 import './Bank_data'
 import { BankData } from './Bank_data'
 import { GetEndpoint } from '../../services/Accessdetails'
+import '../Modal/Modal.css'
   
   const ModalAddCreditor = ({setAddcreditorModal}) => {
       
@@ -24,9 +24,14 @@ import { GetEndpoint } from '../../services/Accessdetails'
             setAlert(false)
             const details = {name:name, amount_owned: amount_owned, bank_code:bank_code, account_number:account_number}
             console.log(details)
-            const AddaCreditor = await GetEndpoint(details, url)
-            console.log(AddaCreditor)
-            setAddcreditorModal(false)
+            try {
+                const AddaCreditor = await GetEndpoint(details, url)
+                console.log(AddaCreditor)
+                setAddcreditorModal(false)
+            } catch (error) {
+                console.log("erorrrrrrrrrrrrr adding debtor")
+            }
+           
             
         }else{
             console.log('NOt all details filled')
@@ -56,7 +61,7 @@ import { GetEndpoint } from '../../services/Accessdetails'
                     fontSize='20px'
                     fontFamily='Volkhov'
                     fontWeight='400'
-                >Profile</Text>
+                >Add a Creditor</Text>
                 <SimpleGrid minChildWidth='120px' spacing='30px' w='100%'>
                     <Box bg='#FDFDFD' borderRadius={10}  >
                         <Text className='profile-label'>Name</Text>
@@ -90,18 +95,11 @@ import { GetEndpoint } from '../../services/Accessdetails'
                         ></input>
                     </Box>
                 </SimpleGrid>
-                <Flex onClick={clearModal} alignItems='center' justifyContent='center'  bg='#2A0B9C' h='40px' w='205px' color='#2A0B9C' m='20px auto' borderRadius={10} cursor='pointer'>
-                     <Text
-                    fontFamily='Poppins'
-                    fontSize='16px'
-                    color='#ffffff'
-                    p='0 5px'
-                    lineHeight='24px'
-                    >Add Creditor</Text>
-                    <Icon as={AiOutlineArrowRight} color='white' fontSize='20px' mr='20px'/>
-                        
+                <Flex justifyContent='space-between' w='100%' m='40px auto'>
+                    <button className='add-creditor-btn-close' onClick={closeModal}>close <AiOutlineClose fontSize={15}/></button>
+                    <button onClick={clearModal} className='add-creditor-btn-save' > Add Creditor <AiOutlineArrowRight/></button>
+                    
                 </Flex>
-                <Button size='xs' color='red' onClick={closeModal}>close</Button>
                 {alert && <Text textAlign='center' color='red' fontFamily='Poppins'>Fill in all the details</Text>}
                           
             </div>

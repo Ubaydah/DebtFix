@@ -1,41 +1,40 @@
-import React, { useEffect, useState } from 'react'
-import {Flex, Box, SimpleGrid, Text, Spacer, Center, Icon, CircularProgress, CircularProgressLabel, Modal} from '@chakra-ui/react'
-import {BsSearch, BsBell, BsCamera, BsPersonCheck,BsPersonX, BsJustifyLeft} from 'react-icons/bs'
+import React, {useState, useEffect} from 'react'
+import {Box, Flex, Text, Spacer, Grid, GridItem, Icon, Center} from '@chakra-ui/react'
+import {BsSearch, BsBell} from 'react-icons/bs'
 import {AiOutlineUsergroupAdd, AiOutlineTeam, AiOutlinePlus, AiOutlineEdit, AiOutlineDelete} from 'react-icons/ai'
 import {MdPayments} from 'react-icons/md'
 import {Table,Thead,Tbody,Tfoot,Tr,Th,Td,TableCaption,TableContainer, HStack} from '@chakra-ui/react'
 import {BsWallet} from 'react-icons/bs'
-import {Grid, GridItem} from '@chakra-ui/react'
-import './DashboardDetails.css'
-import ModalAddCreditor from '../ModalCreditors/ModalAddCreditor'
-import ModalEditCreditor from '../ModalCreditors/ModalEditCreditor'
-//import { GetEndPointData } from '../../services/Accessdetails'
-import Graph from '../Chart/DrawChart'
-import AnalyticsDashboard from './AnalyticsDashboard'
-import DashboardStatistics from './DashboardStatistics'
-import ModalPayaCreditor from '../ModalCreditors/ModalPayaCreditor'
-
-import { useNavigate } from 'react-router-dom'
+import { Sidebar , Loading } from '../../components'
+import ModalPayaCreditor from '../../components/ModalCreditors/ModalPayaCreditor'
+import ModalAddCreditor from '../../components/ModalCreditors/ModalAddCreditor'
+import './ListofCreditors.css'
+import ModalEditCreditor from '../../components/ModalCreditors/ModalEditCreditor'
+import {useLocation} from 'react-router-dom';
 
 
 
-const DashboardDetails = ({username,id, setLoading}) => {
-   const [addCreditorModal, setAddcreditorModal] = useState(false)
-   const [showEditModal, setShowEditModal] = useState(false)
-   const [payCreditorModal, setPaycreditorModal] = useState(false)
+const ListofCreditors = () => {
+    const [addCreditorModal, setAddcreditorModal] = useState(false)
+    const [showEditModal, setShowEditModal] = useState(false)
+    const [payCreditorModal, setPaycreditorModal] = useState(false)
+
+    const [loading, setLoading] = useState(true)
+
+
+   const [creditors, setCreditors] = useState([])
+   const location = useLocation();
+   //const creditors = location.state
+   const url = 'https://debt-fix.herokuapp.com/creditors/'
+   const [noCreditors, setNoCreditors] = useState(false)
+   const [getCreditors, setGetCreditors] = useState(false)
+
 
    const [creditorid, setCreditorId] = useState('')
    const [editName, setEditName] = useState('')
    const [editAmount_owned, setEditAmount_owned] = useState('')
    const [editBank_code, setEditBank_code] = useState('')
    const [editAccount_number, setEditAccount_number] = useState('')
-
-   const [creditors, setCreditors] = useState([])
-   const url = 'https://debt-fix.herokuapp.com/creditors/'
-   const [noCreditors, setNoCreditors] = useState(false)
-   const [getCreditors, setGetCreditors] = useState(false)
-
-   const navigate = useNavigate()
 
    async function getCreditorsData(url){
     const token = localStorage.getItem('accessToken');
@@ -57,6 +56,7 @@ const DashboardDetails = ({username,id, setLoading}) => {
     if (data) {
       setLoading(false)
       setCreditors(data)
+
       
     }
     return data
@@ -74,6 +74,10 @@ const DashboardDetails = ({username,id, setLoading}) => {
     
   },[creditors])
 
+
+  
+
+
   const addCreditor = ()=>{
     setAddcreditorModal(true)
   }
@@ -87,33 +91,39 @@ const DashboardDetails = ({username,id, setLoading}) => {
   }
 
   const payCreditor =()=>{
-    navigate("/profile/creditors",{state:creditors})
-    //setPaycreditorModal(true)
+    setPaycreditorModal(true)
   }
+
+
+  if (loading) {
+    return <Loading/>
+   }
+  
   return (
     <>
-    <Box  h='100%' bg='#F5F5F5' marginLeft='16rem' p='0rem 1rem 0rem 1rem' >
-      <Flex justifyContent='flex-end'  mb='0' >
-        <Box m='0.5rem 1rem' bg='white' w={33} h={33} borderRadius={5} pos='relative' ><BsSearch className='icon'/></Box>
-        <Box m='0.5rem 1rem' p='0rem auto' bg='white'  w={33} h={33} borderRadius={5}pos='relative'><BsBell className='icon'/></Box>
-      </Flex>
-      <Text
-       fontFamily='Volkhov'
-       fontSize='26px'
-       fontWeight='700'
-       lineHeight='30px'
-       color='#271B3E'
-       >Welcome back, {username}</Text>
-      <Text
-       color='#705897'
-       fontFamily='Poppins'
-       fontSize='14px'
-       fontWeight='300'
-       lineHeight='25px'
-      >Let us help you manage your debts</Text>
-      <Flex>
+    <main>
+    <Sidebar/>
+    <Box   className='main-content-listofcreditors'>
+       <Flex justifyContent='flex-end'  mb='0'>
+          <Box m={4} bg='white' w={33} h={33} borderRadius={5} pos='relative' ><BsSearch className='icon'/></Box>
+          <Box m={4} p='0rem auto' bg='white'  w={33} h={33} borderRadius={5}pos='relative'><BsBell className='icon'/></Box>
+       </Flex>
+      <Box>
+        <Text
+        fontFamily='Volkhov'
+        fontSize='24px'
+        fontWeight='700'
+        lineHeight='25px'
+        color='#271B3E'
+        >List of Creditors</Text>
+        <Text
+         color='#705897'
+         fontFamily='Poppins'
+         fontSize='14px'
+         fontWeight='300'
+         lineHeight='25px'
+        >View creditors</Text>
         <Box w='70%' p='15px 0px 0px 0px'>
-          <DashboardStatistics debts_total={creditors.length}/>
            <Text
            fontFamily='Poppins'
            fontSize='18px'
@@ -122,10 +132,15 @@ const DashboardDetails = ({username,id, setLoading}) => {
           p='0.5rem 0'
           >Quick Actions</Text>
           <Flex w='70%' color='#2A0B9C' justifyContent='space-between'>
-            <button onClick={addCreditor} className='button-debt glow-on-hover '><AiOutlineUsergroupAdd/> Add Creditor</button>
-            <button onClick={payCreditor} className='button-debt glow-on-hover '><AiOutlineUsergroupAdd/>Pay creditor</button>
+            <button onClick={addCreditor} className='glow-on-hover'><AiOutlineUsergroupAdd/> Add Creditor
+            </button>
+            <button onClick={payCreditor} className='glow-on-hover'><AiOutlineUsergroupAdd/>Pay creditor</button>
+          
+          
           </Flex>
+          
           <Text
+          w ='100%'
            fontFamily='Poppins'
            fontSize='20px'
            fontWeight='bold'
@@ -142,9 +157,10 @@ const DashboardDetails = ({username,id, setLoading}) => {
              <Center  flexDirection='column'>
                <Box color='#170154' fontSize={40} m='3rem 0 0.5rem 0'><AiOutlineTeam/></Box>
                <Text m='0 0 0.5rem 0'>No creditor has been added yet!</Text>
-               <Box className='white-background-button-container'>
+                <Box className='white-background-button-container'>
                    <button onClick={addCreditor} className='white-background-button'><span>Add creditor</span> <span><AiOutlineUsergroupAdd/></span></button>
                 </Box>
+                
               </Center>
            </GridItem>
          </Grid>}
@@ -158,11 +174,12 @@ const DashboardDetails = ({username,id, setLoading}) => {
            editBank_code={editBank_code}
            creditorid={creditorid}
          />}
-         {getCreditors &&               
-           <TableContainer  w='100%' bg='white'>
+         {getCreditors &&     
+          <Box  w='55rem'>          
+           <TableContainer  bg='white' borderTopRightRadius={10} borderTopLeftRadius={15}>
            <Table >
               <TableCaption></TableCaption>
-              <Thead  boxShadow='lg' borderTopRightRadius={10} borderTopLeftRadius={15} >
+              <Thead boxShadow='lg' borderTopRightRadius={10} borderTopLeftRadius={15}>
                   <Tr >
                   <Th className='table-heading'>Creditor</Th>
                   <Th className='table-heading'>AmountOwned</Th>
@@ -180,12 +197,12 @@ const DashboardDetails = ({username,id, setLoading}) => {
                     return (
                       <Tr color='#271B3E' opacity='90%' border='1px solid rgba(58, 28, 107, 0.15)'
                       fontFamily='Poppins' fontSize='14px' lineHeight='21px'>
-                        <Td>{name}</Td>
-                        <Td>{amount_owned}</Td>
-                        <Td>{account_number}</Td>
-                        <Td>{date_due}</Td>
-                        <Td color={status==='paid'? 'green' :'red'}>{status}</Td>
-                        <Td><HStack>
+                        <Td className='table-data'>{name}</Td>
+                        <Td className='table-data'>{amount_owned}</Td>
+                        <Td className='table-data'>{account_number}</Td>
+                        <Td className='table-data'>{date_due}</Td>
+                        <Td className='table-data' color={status==='paid'? 'green' :'red'}>{status}</Td>
+                        <Td className='table-data'><HStack>
                             <Icon onClick={()=>editDebtorDetails(id,name,amount_owned,account_number, bank_code)} className='edit' color='green' as={AiOutlineEdit}></Icon>
                             <Icon className='delete' color='red' as={AiOutlineDelete}></Icon>
                            </HStack></Td>
@@ -197,20 +214,16 @@ const DashboardDetails = ({username,id, setLoading}) => {
               </Tbody>
            </Table>
           </TableContainer>
-           
+        </Box>
          }
          
+       </Box>
+       </Box> 
         </Box>
-
-
-        {/*Analytics Dashboard*/}
-        <AnalyticsDashboard/>
-      </Flex>
-      
-    </Box>
+        {/*{payCreditorModal && <ModalPayaCreditor creditors={creditors} setPaycreditorModal={setPaycreditorModal}/>}*/}
+    </main>
     </>
   )
 }
 
-
-export default DashboardDetails
+export default ListofCreditors

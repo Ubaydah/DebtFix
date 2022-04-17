@@ -21,11 +21,11 @@ import { UpdateDetails } from '../../services/Accessdetails'
     const url = `https://debt-fix.herokuapp.com/creditor/${id}/update/`
 
     const clearModal = async(e)=>{
-        //console.log(name, amount_owned, bank_code, account_number)
-        //console.log("bankcode", bank_code)
+        
         if(name && amount_owned && bank_code && account_number){
             console.log('details filled')
             setAlert(false)
+            console.log(bank_code,'bank_codee')
             const details = {name:name, amount_owned: amount_owned, bank_code:bank_code, account_number:account_number}
             console.log(details)
             const AddaCreditor = await UpdateDetails(url, details)
@@ -110,7 +110,7 @@ import { UpdateDetails } from '../../services/Accessdetails'
                     <Icon as={AiOutlineArrowRight} color='white' fontSize='20px' mr='20px'/>
                         
                 </Flex>
-                <Button size='xs' color='red' onClick={closeModal}>close</Button>
+                <Button size='xs' color='#2A0B9C' onClick={closeModal}>close</Button>
                 {alert && <Text textAlign='center' color='red' fontFamily='Poppins'>Fill in all the details</Text>}
                           
             </div>

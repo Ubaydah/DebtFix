@@ -1,13 +1,14 @@
 import React from 'react'
 import { Sidebar, PaymentInfo } from '../../components'
+import './Payment.css'
 
 const Payment = () => {
   return (
     <>
-    <main>
+    <div className='page'>
       <Sidebar/>
       <PaymentInfo/>
-    </main>
+    </div>
     </>
   )
 }

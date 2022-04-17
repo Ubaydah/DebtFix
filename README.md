@@ -4,6 +4,9 @@ This is the Tech Queens submission for the Angel Hack African Women in Innovatio
 
 We had a quite a lot of fun building this project which main aim is developed towards helping individuals and businesses manage people they owe, save towards settling them and offset their debts easily through automated payment.
 
+
+![database design](logo.png)
+
 ## About
 Debt Fix, a fintech platform built with passion with Django X React ❤and Paystack as third party payment gateway to solve individual and businesses across Africa  towards managing a list of their creditors, saving towards ofsetting their debts and paying their creditors using automated payments.
 

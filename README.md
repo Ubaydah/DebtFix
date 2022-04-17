@@ -20,7 +20,7 @@ Below is an image of the database design
 
 
 ## Technologies used
-* Front end : React.js
+* Front end : React.js and Chakra UI
 * Back end: Django and Django Rest Framework 
 * Huey X Redis for Background task runner 
 * Postgresql for database

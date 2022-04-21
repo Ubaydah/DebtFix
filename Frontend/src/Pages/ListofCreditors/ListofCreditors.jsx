@@ -3,6 +3,7 @@ import {Box, Flex, Text, Spacer, Grid, GridItem, Icon, Center} from '@chakra-ui/
 import {BsSearch, BsBell} from 'react-icons/bs'
 import {AiOutlineUsergroupAdd, AiOutlineTeam, AiOutlinePlus, AiOutlineEdit, AiOutlineDelete} from 'react-icons/ai'
 import {MdPayments} from 'react-icons/md'
+import {GiHamburgerMenu } from 'react-icons/gi'
 import {Table,Thead,Tbody,Tfoot,Tr,Th,Td,TableCaption,TableContainer, HStack} from '@chakra-ui/react'
 import {BsWallet} from 'react-icons/bs'
 import { Sidebar , Loading } from '../../components'
@@ -11,6 +12,7 @@ import ModalAddCreditor from '../../components/ModalCreditors/ModalAddCreditor'
 import './ListofCreditors.css'
 import ModalEditCreditor from '../../components/ModalCreditors/ModalEditCreditor'
 import {useLocation} from 'react-router-dom';
+import Signin from '../Signin/Signin'
 
 
 
@@ -20,6 +22,8 @@ const ListofCreditors = () => {
     const [payCreditorModal, setPaycreditorModal] = useState(false)
 
     const [loading, setLoading] = useState(true)
+    const token = localStorage.getItem('accessToken');
+
 
 
    const [creditors, setCreditors] = useState([])
@@ -93,17 +97,29 @@ const ListofCreditors = () => {
   const payCreditor =()=>{
     setPaycreditorModal(true)
   }
-
+  if (!token) {
+    return <Signin/>
+  }
 
   if (loading) {
-    return <Loading/>
+    return <>
+    <Sidebar/>
+    <Loading/>
+    </>
    }
+   const openSidebar = ()=>{
+    document.getElementById("sidenav").style.width = "16rem";
+    document.getElementById("links-cont").style.display = "block";
+    //document.getElementById("dashboard-details").style.width = "0";
+  
+  }
+
   
   return (
     <>
-    <main>
     <Sidebar/>
-    <Box   className='main-content-listofcreditors'>
+    <Box className='main-content-listofcreditors'>
+       <Box onClick={openSidebar} className='sidebar-open-menu' fontSize={25}  color='#705897' fontWeight='bold'><GiHamburgerMenu/></Box>
        <Flex justifyContent='flex-end'  mb='0'>
           <Box m={4} bg='white' w={33} h={33} borderRadius={5} pos='relative' ><BsSearch className='icon'/></Box>
           <Box m={4} p='0rem auto' bg='white'  w={33} h={33} borderRadius={5}pos='relative'><BsBell className='icon'/></Box>
@@ -111,36 +127,36 @@ const ListofCreditors = () => {
       <Box>
         <Text
         fontFamily='Volkhov'
-        fontSize='24px'
+        fontSize='28px'
         fontWeight='700'
         lineHeight='25px'
-        color='#271B3E'
+        color='#2A0B9C'
+        pb='5px'
+        fontStyle='italic'
         >List of Creditors</Text>
         <Text
          color='#705897'
          fontFamily='Poppins'
-         fontSize='14px'
+         fontSize='16px'
          fontWeight='300'
          lineHeight='25px'
         >View creditors</Text>
-        <Box w='70%' p='15px 0px 0px 0px'>
+        <Box w='100%' p='15px 0px 0px 0px'>
            <Text
            fontFamily='Poppins'
            fontSize='18px'
            fontWeight='bold'
-           color='#271B3E'
+           color='#2A0B9C'
           p='0.5rem 0'
           >Quick Actions</Text>
-          <Flex w='70%' color='#2A0B9C' justifyContent='space-between'>
+          <Flex w={{base:'100%', sm:'90%',md:'80%', lg:'50%',xl:'50%'}} color='#2A0B9C' justifyContent='space-between'>
             <button onClick={addCreditor} className='glow-on-hover'><AiOutlineUsergroupAdd/> Add Creditor
             </button>
             <button onClick={payCreditor} className='glow-on-hover'><AiOutlineUsergroupAdd/>Pay creditor</button>
-          
-          
           </Flex>
           
           <Text
-          w ='100%'
+            w ='100%'
            fontFamily='Poppins'
            fontSize='20px'
            fontWeight='bold'
@@ -158,7 +174,7 @@ const ListofCreditors = () => {
                <Box color='#170154' fontSize={40} m='3rem 0 0.5rem 0'><AiOutlineTeam/></Box>
                <Text m='0 0 0.5rem 0'>No creditor has been added yet!</Text>
                 <Box className='white-background-button-container'>
-                   <button onClick={addCreditor} className='white-background-button'><span>Add creditor</span> <span><AiOutlineUsergroupAdd/></span></button>
+                   <button onClick={addCreditor} className='button-debt'><span>Add creditor</span> <span><AiOutlineUsergroupAdd/></span></button>
                 </Box>
                 
               </Center>
@@ -175,10 +191,8 @@ const ListofCreditors = () => {
            creditorid={creditorid}
          />}
          {getCreditors &&     
-          <Box  w='55rem'>          
-           <TableContainer  bg='white' borderTopRightRadius={10} borderTopLeftRadius={15}>
-           <Table >
-              <TableCaption></TableCaption>
+           <TableContainer bg='white' >
+           <Table variant='simple'>
               <Thead boxShadow='lg' borderTopRightRadius={10} borderTopLeftRadius={15}>
                   <Tr >
                   <Th className='table-heading'>Creditor</Th>
@@ -214,14 +228,12 @@ const ListofCreditors = () => {
               </Tbody>
            </Table>
           </TableContainer>
-        </Box>
+        
          }
-         
-       </Box>
-       </Box> 
         </Box>
+      </Box> 
+    </Box>
         {/*{payCreditorModal && <ModalPayaCreditor creditors={creditors} setPaycreditorModal={setPaycreditorModal}/>}*/}
-    </main>
     </>
   )
 }

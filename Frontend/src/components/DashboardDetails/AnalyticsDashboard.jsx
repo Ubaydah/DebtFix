@@ -61,7 +61,7 @@ const AnalyticsDashboard = ({}) => {
     }
   }
 
-  console.log(debtStat,'debtstat')
+  
   useEffect(()=>{
      getWalletBal(url)
      DebtStatistics(debtsUrl)
@@ -77,15 +77,15 @@ const AnalyticsDashboard = ({}) => {
 
   return (
     <>
-       <Box w={397}  h='40rem' ml='10px'>
+       <Box  className='analytics-dashboard' w={{xl:'30%',lg:'40%', md:'70%', base:'100%'}}  h='40rem' ml='10px'>
           <Box className='analytics-background' p='1rem 0' borderRadius={15}>
              <Flex alignItems='center' color='white' p='25px'>
                <Icon as={BsWallet}/>
                <Text pl='10px' fontFamily='Poppins' fontSize='16px' lineHeight='24px'>My Wallet</Text>
              </Flex>
              <Text color='white' fontFamily='Volkhov' fontSize='36px' lineHeight='47px'fontWeight='400' p='0 25px'>{bal? bal : '#0.00'}</Text>
-             <Flex alignItems='center' justifyContent='space-between' cursor='pointer' onClick={fundWallet}>
-                <Flex alignItems='center' justifyContent='center'  bg='#ffffff' h='50px' w='205px' color='#2A0B9C' borderRadius='10px' m='10px 25px'>
+             <Flex  alignItems='center' justifyContent='space-between' cursor='pointer' onClick={fundWallet}>
+                <Flex className='fund-wallet-btn' alignItems='center' justifyContent='center'  bg='#ffffff' h='50px' w='205px' color='#2A0B9C' borderRadius='10px' m='10px 25px'>
                   <Box ><AiOutlinePlus/></Box>
                    <Text
                     fontFamily='Poppins'

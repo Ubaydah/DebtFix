@@ -1,20 +1,83 @@
 .profile-sidebar{
-    width: 13rem;
+    width: 16rem;
     height: 100vh;
-    background-color:#FFFFFF;
+    background-color: #ffff;
     position: fixed;
     overflow: hidden;
     top: 0;
     left: 0;
     z-index: 1;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s linear;
 }
 
 .links{
-    padding: 15px 5rem 15px 0px;
-    border-radius: 10px;
-    transition: linear 2s;
+    display: block;
+    width: 100%;
+    padding: 10px 10px;
+    border-radius: 0px;
+    transition: all 0.3s linear ;
 }
 
 .links-container{
-    margin: 20px 0px;
+    width: 100%;
+    display: block;
+    margin: 10px 0;
+   
+}
+.sidebar-close-menu{
+    display: none !important;
+    margin-left: 60px;
+}
+
+.sidebar-open-menu{
+  position: fixed;
+  left: 3%;
+  top: 2%;
+  display: none;
+  animation: bounce 2s ease-in-out infinite;
+ 
+}
+@keyframes bounce {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+
+.sidebar-menu{
+    
+
+}
+
+.sidebar-logo{
+    position: relative;
+    top: -15px;
+    
+}
+.sidebar-logo img{
+    height: 4rem;
+    width: 13rem;
+    
+}
+
+@media screen and (max-width:815px) {
+    .sidebar-close-menu{
+        display: block !important;
+    }
+    .sidebar-open-menu{
+        display: block !important;
+    }
+}
+
+@media screen and (min-width:815px) {
+    .profile-sidebar{
+        width: 16rem;
+    }
 }

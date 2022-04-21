@@ -15,7 +15,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(true)
 
   const url = 'https://debt-fix.herokuapp.com/profile/get/'
-  const [isnewuser, setIsnewuser] = useState()
+  const [isnewuser, setIsnewuser] = useState(false)
   const creditorsUrl = 'https://debt-fix.herokuapp.com/creditors/'
 
   async function getUserProfile(url){
@@ -47,18 +47,20 @@ const Profile = () => {
    }
    useEffect(()=>{
      getUserProfile(url)
+     
     
    },[])
   //console.log(username, Id)
-  
-  if(loading){
-    
-    return <Loading/>
-  }
 
+  
 
   if (!token) {
     return <Signin/>
+  }
+
+  if(loading){
+    
+    return <Loading/>
   }
 
   if (isnewuser) {

@@ -76,37 +76,36 @@ const ModalPayaCreditor = ({setPaycreditorModal,creditors}) => {
     <>
      <div className='modal-container'>
         <div id="myModal" class="modal">
-            <div className="modal-pay-creditor">
+            <div className="modal-profile-update">
                 <Text
                     textAlign='center' 
                     fontSize='20px'
                     fontFamily='Volkhov'
                     fontWeight='400'
                 >Pay a Creditor</Text>
-                <Flex>
+                <Flex className='modal-pay-creditor-container'>
                     <Box>
                       <Box bg='#FDFDFD' borderRadius={10}  >
-                         <Text className='profile-label'>Select creditor</Text>
-                         <Select placeholder='Select option' size='sm' borderRadius={10}
+                         <Text fontSize='12px' className='profile-label'>Select creditor</Text>
+                          <Select className='pay-creditor-select-field' fontSize='12px' placeholder='Select option' size='sm' borderRadius={10}
                              value={name}
                              onChange={e => { return setAlert(false), setName(e.target.value)}}>
                                 {filt.map((creditor)=>
                                    <option value={creditor.name}>{creditor.name}</option>
                                    
                                 )}
-                            
-                          </Select>
+                           </Select>
                         </Box>
                         <Box bg='#FDFDFD' borderRadius={10} mt='10px' >
                            <Text className='profile-label'>If No, type amount</Text>
-                            <input className='profile-input'
+                            <input className='profile-input pay-creditor-input'
                             type='number' id='option-amount' name='option-amount' required
                             onChange={e => { return setAlert(false),setOptionalAmt(e.target.value)}}
                             ></input>
                         </Box>
                         <Box bg='#FDFDFD' borderRadius={10} mt='10px'>
                            <Text className='profile-label'>Narration</Text>
-                            <input className='profile-input'
+                            <input className='profile-input pay-creditor-input'
                             type='text' id='narration' name='narration' required
                             onChange={e => { return setAlert(false),setNarration(e.target.value)}}
                             ></input>
@@ -131,18 +130,11 @@ const ModalPayaCreditor = ({setPaycreditorModal,creditors}) => {
                     </Box>
                 </Flex>
                 
-            <Flex justifyContent='space-between' alignItems='center' w='100%' >
-                <Flex onClick={clearModal} alignItems='center' justifyContent='center'  bg='#2A0B9C' h='40px' w='180px' color='#2A0B9C' m='30px 0 ' borderRadius={10} cursor='pointer'>
-                    <Text
-                       fontFamily='Poppins'
-                        fontSize='16px'
-                        color='#ffffff'
-                        p='0 5px'
-                        lineHeight='24px'
-                    >Pay creditor</Text>
-                    <Icon as={AiOutlineArrowRight} color='white' fontSize='20px' mr='20px'/>
-                </Flex>
-                <Button size='md' color='#2A0B9C'  onClick={closeModal}>close</Button>
+            <Flex className='btn-container' justifyContent='space-between' alignItems='center' w='100%' m='2rem 0 0 0'>
+                <Box className='white-background-button-container' >
+                   <button onClick={clearModal} className='white-background-button'><span>Pay creditor</span> <span><AiOutlineArrowRight/></span></button>
+                </Box>
+                <Button className='close-btn-modal' fontSize='14px' size='md' color='#2A0B9C'  onClick={closeModal}>close</Button>
             </Flex>
             <Text textAlign='center' color='red' fontFamily='Poppins'>{alert}</Text>
             <Link to='/profile' className={paymentText.status}>{paymentText.message}</Link>

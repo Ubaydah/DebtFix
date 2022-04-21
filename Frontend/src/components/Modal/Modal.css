@@ -18,11 +18,12 @@
   /* Modal Content/Box */
   .modal-content {
     background-color: #fefefe;
-    margin: 5% auto; /* 15% from the top and centered */
-    width: 25%; /* Could be more or less, depending on screen size */
+    margin: 10% auto; /* 15% from the top and centered */
+    width: 30%; /* Could be more or less, depending on screen size */
     border-radius: 10px;
     transition: all 0.3s ease-out;
-    padding: 15px;
+    padding: 10px 15px;
+   
   }
 
   .profile-container{
@@ -31,19 +32,21 @@
 
 }
 .profile-btn{
-  padding: 10px 25px;
+   padding: 10px 25px;
     display: flex;
     align-items: center;
     font-family: Poppins;
     color: white;
     background-color: #2A0B9C;
     border-radius: 10px;
+    font-size: 12px;
+    margin: 0 auto;
 
 }
   
 
 .add-creditor-btn-save{
-    padding: 10px 15px;
+    padding: 7px 11px;
     display: flex;
     align-items: center;
     font-family: Poppins;
@@ -54,7 +57,7 @@
 
 }
 .add-creditor-btn-close{
-   padding: 7px 35px;
+   padding: 4px 11px;
     display: flex;
     align-items: center;
     font-family: Poppins;
@@ -63,10 +66,20 @@
     background-color: white;
     border-radius: 10px;
     cursor: pointer;
+    transition: all .1s linear;
+}
+
+
+.add-creditor-btn-close:hover{
+  color: white;
+  background-color: #2A0B9C;
 }
   /* The Close Button */
   
-
+  .close-btn-modal:hover{
+    color: white;
+    background-color: #2A0B9C !important;
+  }
   
 
   @keyframes myAnimation{
@@ -110,10 +123,10 @@
 
 .modal-profile-update{
     background-color: #fefefe;
-    margin: 5% auto; /* 15% from the top and centered */
+    margin: 10% auto; /* 15% from the top and centered */
     width: 30%; /* Could be more or less, depending on screen size */
     border-radius: 10px;
-    padding: 20px;
+    padding: 10px 20px;
     transition: all 0.3s ease-out;
 }
 
@@ -131,9 +144,9 @@
 .profile-label{
  color: #7B7B7B;
  font-weight: 500;
- font-size: 13px;
+ font-size: 13px !important;
  line-height: 16px;
- font-family: inter;
+ font-family: inter !important;
  padding: 5px 0;
 }
 .modal-pay-creditor{
@@ -150,10 +163,10 @@
   font-family: Poppins;
   font-weight: 400;
   font-style: italic;
-  color: green;
+  color: rgb(9, 69, 9);
 }
 .external-url:hover{
-  color: rgb(20, 30, 4);
+  color: rgb(24, 206, 24);
 }
 
 .success{
@@ -163,4 +176,121 @@
 .failure{
   color: red;
   font-size: 15px;
+}
+
+@media screen and (max-width:1194px) {
+  .modal-content{
+    margin: 25%;
+    width: 36%;
+  }
+  .save-btn{
+    font-size: 12px;
+  }
+}
+@media screen and (max-width:1184px) {
+  .modal-content{
+    width: 36%;
+  }
+  .save-btn{
+    font-size: 12px;
+  }
+}
+
+
+@media screen and (max-width:929px) {
+  .add-creditor-btn-close{
+    padding: 0px 6px;
+    font-size: 14px;
+  }
+  .white-background-button{
+    padding: 0;
+    font-size: 14px;
+  }
+
+}
+
+@media screen and (max-width:883px) {
+  .modal-profile-update{
+    margin: 20% auto;
+    width: 50%;
+  }
+
+  .modal-content{
+    width: 45%;
+  }
+  .btn-container{
+    margin: 20px auto !important;
+  }
+  .add-creditor-btn-close{
+   height: 2.5rem;
+  }
+  .white-background-button{
+    height: 2.5rem;
+  }
+  .modal-add-creditor-info{
+    padding: 0 !important;
+  }
+  .modal-profile-update{
+    margin: 15% auto;
+    width: 40%;
+  }
+  modal-pay-creditor-container{
+  
+    flex-direction: column-reverse !important;
+  }
+}
+
+
+
+@media screen and (max-width:769px) {
+  .white-background-button{
+    height: 2.5rem;
+    width: 6rem;
+    font-size: 10px;
+    padding: 0;
+  }
+  .modal-profile-update{
+    margin: 20% auto;
+    width: 50%;
+  }
+  
+}
+
+@media screen and (max-width:620px) {
+  .modal-profile-update{
+    margin: 20% auto;
+    width: 60%;
+  }
+  .modal-content{
+    width: 50%;
+  }
+  .profile-btn{
+    font-size: 10px;
+  }
+
+
+}
+@media screen and (max-width:540px) {
+
+  .modal-profile-update{
+    margin: 20% auto;
+    width: 60%;
+  }
+  .modal-content{
+    width: 60%;
+    margin: 20% auto;
+  }
+}
+
+@media screen and (max-width:480px) {
+
+  .modal-profile-update{
+    margin: 30% auto;
+    width: 70%;
+  }
+  .modal-content{
+    width: 70%;
+    margin: 30% auto;
+
+  }
 }

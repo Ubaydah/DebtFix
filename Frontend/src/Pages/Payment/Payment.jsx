@@ -5,10 +5,10 @@ import './Payment.css'
 const Payment = () => {
   return (
     <>
-    <div className='page'>
+   
       <Sidebar/>
       <PaymentInfo/>
-    </div>
+  
     </>
   )
 }

@@ -7,12 +7,12 @@ import Photo from '../../Images/PexelsPhoto.jpg'
 const Header = () => {
   return (
    <>
-     <Flex className='header-box' bg='#FCFBFF' w='90vw' m='2rem auto' flexDirection={{base:'column', lg:'row'}}>
+     <Flex className='header-box' bg='#FCFBFF' w='90vw' m='0rem auto' flexDirection={{base:'column', lg:'row'}}>
        <Box className='header-text-box'>
          <Text fontFamily='Volkhov'
-             fontSize='74px'
+             fontSize= {{lg:'74px',md:'60px',sm:'45px'}}
              fontWeight='400'
-             line-height='95px'
+             line-height={{lg:'95px',md:'60px',sm:'45px'}}
              letter-spacing='0em'
              text-align='left'
              color='#271B3E'
@@ -23,7 +23,7 @@ const Header = () => {
          </Text>
          <Text
            fontFamily='Poppins'
-           fontSize='22px'
+           fontSize={{lg:'22px',md:'18px',sm:'18px'}}
            fontWeight='300'
            line-height='33px'
            letter-spacing='0em'

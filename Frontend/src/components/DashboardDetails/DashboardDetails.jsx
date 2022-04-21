@@ -3,6 +3,7 @@ import {Flex, Box, SimpleGrid, Text, Spacer, Center, Icon, CircularProgress, Cir
 import {BsSearch, BsBell, BsCamera, BsPersonCheck,BsPersonX, BsJustifyLeft} from 'react-icons/bs'
 import {AiOutlineUsergroupAdd, AiOutlineTeam, AiOutlinePlus, AiOutlineEdit, AiOutlineDelete} from 'react-icons/ai'
 import {MdPayments} from 'react-icons/md'
+import {GiHamburgerMenu } from 'react-icons/gi'
 import {Table,Thead,Tbody,Tfoot,Tr,Th,Td,TableCaption,TableContainer, HStack} from '@chakra-ui/react'
 import {BsWallet} from 'react-icons/bs'
 import {Grid, GridItem} from '@chakra-ui/react'
@@ -20,6 +21,9 @@ import { useNavigate } from 'react-router-dom'
 
 
 const DashboardDetails = ({username,id, setLoading}) => {
+   
+
+
    const [addCreditorModal, setAddcreditorModal] = useState(false)
    const [showEditModal, setShowEditModal] = useState(false)
    const [payCreditorModal, setPaycreditorModal] = useState(false)
@@ -90,19 +94,29 @@ const DashboardDetails = ({username,id, setLoading}) => {
     navigate("/profile/creditors",{state:creditors})
     //setPaycreditorModal(true)
   }
+
+  const openSidebar = ()=>{
+    document.getElementById("sidenav").style.width = "16rem";
+    document.getElementById("links-cont").style.display = "block";
+    //document.getElementById("dashboard-details").style.width = "0";
+  
+  }
+
   return (
     <>
-    <Box  h='100%' bg='#F5F5F5' marginLeft='16rem' p='0rem 1rem 0rem 1rem' >
+    <Box className='dashboard-details'  id='dashboard-details' h='100%' bg='#F5F5F5' marginLeft='16rem' p='0rem 1rem 0rem 1rem' >
+    <Box onClick={openSidebar} className='sidebar-open-menu' fontSize={25}  color='#705897' fontWeight='bold'><GiHamburgerMenu/></Box>
       <Flex justifyContent='flex-end'  mb='0' >
-        <Box m='0.5rem 1rem' bg='white' w={33} h={33} borderRadius={5} pos='relative' ><BsSearch className='icon'/></Box>
-        <Box m='0.5rem 1rem' p='0rem auto' bg='white'  w={33} h={33} borderRadius={5}pos='relative'><BsBell className='icon'/></Box>
+        <Box m='0.5rem 0.5rem' bg='white' w={33} h={33} borderRadius={5} pos='relative' ><BsSearch className='icon'/></Box>
+        <Box m='0.5rem 0.5rem' p='0rem auto' bg='white'  w={33} h={33} borderRadius={5}pos='relative'><BsBell className='icon'/></Box>
       </Flex>
       <Text
-       fontFamily='Volkhov'
-       fontSize='26px'
-       fontWeight='700'
-       lineHeight='30px'
-       color='#271B3E'
+        fontFamily='Volkhov'
+        fontSize='26px'
+        fontWeight='700'
+        lineHeight='30px'
+        color='#271B3E'
+        textTransform='capitalize'
        >Welcome back, {username}</Text>
       <Text
        color='#705897'
@@ -111,8 +125,8 @@ const DashboardDetails = ({username,id, setLoading}) => {
        fontWeight='300'
        lineHeight='25px'
       >Let us help you manage your debts</Text>
-      <Flex>
-        <Box w='70%' p='15px 0px 0px 0px'>
+      <Flex className='dashboard-container' flexDirection={{base:'column', lg:'row'}}>
+        <Box className='dashboard-inner-container' w={{xl:'70%',lg:'60%'}} p='15px 0px 0px 0px'>
           <DashboardStatistics debts_total={creditors.length}/>
            <Text
            fontFamily='Poppins'
@@ -121,7 +135,7 @@ const DashboardDetails = ({username,id, setLoading}) => {
            color='#271B3E'
           p='0.5rem 0'
           >Quick Actions</Text>
-          <Flex w='70%' color='#2A0B9C' justifyContent='space-between'>
+          <Flex w={{base:'90%', md:'70%',lg:'70%'}} color='#2A0B9C' justifyContent='space-between'>
             <button onClick={addCreditor} className='button-debt glow-on-hover '><AiOutlineUsergroupAdd/> Add Creditor</button>
             <button onClick={payCreditor} className='button-debt glow-on-hover '><AiOutlineUsergroupAdd/>Pay creditor</button>
           </Flex>
@@ -143,7 +157,7 @@ const DashboardDetails = ({username,id, setLoading}) => {
                <Box color='#170154' fontSize={40} m='3rem 0 0.5rem 0'><AiOutlineTeam/></Box>
                <Text m='0 0 0.5rem 0'>No creditor has been added yet!</Text>
                <Box className='white-background-button-container'>
-                   <button onClick={addCreditor} className='white-background-button'><span>Add creditor</span> <span><AiOutlineUsergroupAdd/></span></button>
+                   <button onClick={addCreditor} className='button-debt'><span>Add creditor</span> <span><AiOutlineUsergroupAdd/></span></button>
                 </Box>
               </Center>
            </GridItem>
@@ -159,8 +173,8 @@ const DashboardDetails = ({username,id, setLoading}) => {
            creditorid={creditorid}
          />}
          {getCreditors &&               
-           <TableContainer  w='100%' bg='white'>
-           <Table >
+           <TableContainer  bg='white'>
+           <Table>
               <TableCaption></TableCaption>
               <Thead  boxShadow='lg' borderTopRightRadius={10} borderTopLeftRadius={15} >
                   <Tr >

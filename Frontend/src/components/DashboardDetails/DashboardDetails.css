@@ -22,10 +22,148 @@
 }
 
 .table-heading{
-    color:#271B3E;
-    border: 2px solid #3A1C6B;
+    color:#271B3E !important;
+    border: 1px solid #bebbc3 !important;
     
 }
+
+.table-data{
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
+    text-align: center !important;
+    
+   
+}
+
+.button-debt{
+    padding: 15px 20px;
+     display: flex;
+     align-items: center;
+     font-family: Poppins;
+     border: 2px solid #2A0B9C;
+     background-color: #FDFDFD;
+     border-radius: 10px;
+     transition: all 0.3s linear;
+     
+ }
+.button-debt:hover{
+    color: #FDFDFD;
+    background-color: #2A0B9C;
+}
+ 
+ 
+
+ .glow-on-hover {
+    padding: 20px 25px;
+     display: flex;
+     align-items: center;
+     font-family: Poppins;
+     border: 2px solid #2A0B9C;
+     background-color: #FDFDFD;
+     border-radius: 10px;
+    position: relative;
+    z-index: 0;
+    
+}
+.glow-on-hover:hover{
+    background-color: #D38DDF;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg,  #D38DDF, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:active {
+    color: white
+}
+
+.glow-on-hover:active:after {
+    background: transparent;
+  
+}
+
+.glow-on-hover:hover:before {
+    background: #2A0B9C;
+    color: white;
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+
+
+
+
+  
+  .white-background-button{
+    padding: 10px 15px;
+     display: flex;
+     align-items: center;
+     font-family: Poppins;
+     border: 2px solid #2A0B9C;
+     border-radius: 10px;
+     transition: all .35s;
+     position: relative;
+     z-index: 2;
+     cursor: pointer;
+     background-color: #2A0B9C;
+     color: #FDFDFD;
+  }
+  
+  
+  .white-background-button::after{
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: #FDFDFD;
+    color: #2A0B9C;
+    transition: all .35s;
+    border-radius: 10px;
+  }
+  
+.white-background-button:hover{
+    color: #2A0B9C;
+  }
+
+.white-background-button span{
+    position: relative;
+    z-index: 2;
+}
+ 
+  .white-background-button:hover:after{
+    width: 100%;
+    color: #2A0B9C;
+  }
 
 Tr:nth-child(even) {background-color: #f2f2f2;}
 
@@ -46,4 +184,75 @@ Tr:nth-child(even) {background-color: #f2f2f2;}
 .make-payments:hover{
     color: rgb(219, 23, 219) !important;
     font-size: 20px;
+}
+
+.fund-wallet-btn{
+    transition: 0.2s linear;
+
+}
+.fund-wallet-btn:hover{
+    color:rgb(219, 23, 219);
+    height: 57px;
+}
+.fund-wallet-btn Text:hover{
+    color:rgb(219, 23, 219);
+}
+
+@media screen and (max-width:1080px) {
+    .dashboard-container{
+        flex-direction: column !important;
+    }
+    .dashboard-inner-container{
+        width: 100% !important;
+    }
+    .analytics-dashboard{
+        display: block !important;
+        width: 60% !important;
+        margin: 1rem auto !important;
+    }
+}
+@media screen and (max-width:815px) {
+    .dashboard-details{
+        margin-left:0 !important;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .glow-on-hover{
+        padding: 15px 17px;
+    }
+    .analytics-dashboard{
+        width: 400px !important;
+    }
+}
+@media screen and (max-width:520px) {
+    .glow-on-hover{
+        padding: 12px 15px;
+    }
+    .dashboard-stat{
+        width: 130px !important;
+    }
+    .analytics-dashboard{
+        width: 300px !important;
+    }
+}
+
+@media screen and (max-width:450px) {
+    .dashboard-stat{
+        width: 100px !important;
+        height: 100px !important;
+    }
+    .glow-on-hover{
+        padding: 10px 12px !important;
+    }
+}
+
+@media screen and (max-width:370px) {
+    .dashboard-stat{
+        width: 80px !important;
+        height: 80px !important;
+    }
+    .glow-on-hover{
+        padding: 8px 12px !important;
+    }
 }

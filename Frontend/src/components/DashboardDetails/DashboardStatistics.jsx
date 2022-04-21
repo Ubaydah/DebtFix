@@ -45,63 +45,62 @@ const DashboardStatistics = ({debts_total}) => {
   const {creditors_all, creditors_paid,creditors_unpaid} = statistics
   return (
     <>
-    
-     <SimpleGrid minChildWidth='20px' spacing='50px' w='100%'>
-        <Box bg='#FDFDFD' borderRadius={10} w='150px' h='120px'>
+     <SimpleGrid minChildWidth='20px' spacing={{sm:'30px',md:'50px', lg:'50px'}} w='100%'>
+        <Box className='dashboard-stat' bg='#FDFDFD' borderRadius={10} w='150px' h='120px'>
               <Box m='10px' color='#170154'> <AiOutlineUsergroupAdd/></Box>
               <Text
               fontFamily='Poppins'
-              fontSize='14px'
+              fontSize= {{base:'8px', sm:'10px', md:'14px'}}
               fontWeight='400'
-              lineHeight='18px'
+              lineHeight={{base:'10px',sm:'14px', md:'18px'}}
               color='#999999'
-              p='5px 10px'
+              p={{base:'0px 7px',sm:'5px 10px'}}
               >Total Creditors</Text>
               <Text
               fontFamily='Volkov'
-              fontSize='40px'
+              fontSize={{base:'20px', sm:'35px', md:'40px'}}
               lineHeight='46px'
               color='#170154'
               fontWeight='Bold'
-              p=' 0 10px'
+              p={{base:'0px 7px',sm:'5px 10px'}}
               >{creditors_all}</Text>
        </Box>
-        <Box bg='#FDFDFD' borderRadius={10} w='150px'>
+        <Box className='dashboard-stat' bg='#FDFDFD' borderRadius={10} w='150px' h='120px'>
               <Box m='10px' color='#170154'><BsPersonCheck/></Box>
               <Text
                fontFamily='Poppins'
-               fontSize='14px'
+               fontSize= {{base:'8px', sm:'10px', md:'14px'}}
                fontWeight='400'
-               lineHeight='18px'
+               lineHeight={{base:'10px',sm:'14px', md:'18px'}}
                color='#999999'
-               p='5px 10px'
+               p={{base:'0px 7px',sm:'5px 10px'}}
               >Total debts cleared</Text>
               <Text
               fontFamily='Volkov'
-              fontSize='40px'
+              fontSize={{base:'20px', sm:'35px', md:'40px'}}
               lineHeight='46px'
               color='#170154'
               fontWeight='Bold'
-              p=' 0 10px'
+              p={{base:'0px 7px',sm:'5px 10px'}}
               >{creditors_paid}</Text>
         </Box>
-        <Box bg='#FDFDFD' borderRadius={10} w='150px'>
+        <Box className='dashboard-stat' bg='#FDFDFD' borderRadius={10} w='150px' h='120px'>
               <Box m='10px' color='#170154'><BsPersonX /></Box>
               <Text
                fontFamily='Poppins'
-               fontSize='14px'
+               fontSize= {{base:'10px', sm:'10px', md:'14px'}}
                fontWeight='400'
-               lineHeight='18px'
+               lineHeight={{base:'14px',sm:'14px', md:'18px'}}
                color='#999999'
-               p='5px 10px'
+               p={{base:'0px 7px',sm:'5px 10px'}}
               >Total debts left</Text>
               <Text
               fontFamily='Volkov'
-              fontSize='40px'
+              fontSize= {{base:'20px', sm:'35px', md:'40px'}}
               lineHeight='46px'
               color='#170154'
               fontWeight='Bold'
-              p=' 0 10px'
+              p={{base:'0px 7px',sm:'5px 10px'}}
               >{creditors_unpaid}</Text>
         </Box>   
     </SimpleGrid>

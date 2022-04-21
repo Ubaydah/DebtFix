@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import {AiOutlineArrowLeft} from 'react-icons/ai'
 import {Box, Flex, Text,Spacer} from'@chakra-ui/react'
 import Logo from '../../Images/Logosign.svg'
 import './Signup.css'
@@ -67,10 +68,12 @@ const Signup = () => {
   
   return (
     <>
-    
-      <Flex p={10} justifyContent='center' bg='#e5e5e5' ><img src={Logo}alt="logo"></img></Flex>
+    <Flex p={7} justifyContent='center' bg='#e5e5e5' >
+    <Link to='/' className='link-homepage-signin'><AiOutlineArrowLeft/></Link>
+      <img src={Logo}alt="logo"></img>
+    </Flex>
       <Flex justifyContent='center' bg='#e5e5e5'>
-        <Box w='554px' borderRadius={10} bg='#FFFFFF' overflow='hidden' m='1rem 0 5rem 0' p={10}>
+        <Box className='signin-conntainer-box' w={{base:'350px', sm:'400px',md:'554px',}} borderRadius={10} bg='#FFFFFF' overflow='hidden' m='1rem 0 5rem 0' p={10}>
           <Box textAlign='center' >
             <Text
                fontFamily='Volkhov'
@@ -121,7 +124,7 @@ const Signup = () => {
             <Spacer/>
             <Text
             fontFamily='Poppins'
-            fontSize='16px'
+            fontSize={{base:'10px',sm:'14px', md:'16px'}}
             fontWeight='700'
             lineHeight='24px'
             color='#271B3E'
@@ -142,7 +145,8 @@ const Signup = () => {
             <Link to='/signin' className='signin-user'> Sign in</Link>
             </Text>
         </Box>
-      </Flex>
+      
+    </Flex>
     
     </>
   )

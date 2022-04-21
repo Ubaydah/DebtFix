@@ -62,22 +62,22 @@ import '../Modal/Modal.css'
                     fontFamily='Volkhov'
                     fontWeight='400'
                 >Add a Creditor</Text>
-                <SimpleGrid minChildWidth='120px' spacing='30px' w='100%'>
-                    <Box bg='#FDFDFD' borderRadius={10}  >
+                <SimpleGrid minChildWidth='120px' spacing='20px' w='100%'>
+                    <Box className='modal-add-creditor-info' bg='#FDFDFD' borderRadius={10}  >
                         <Text className='profile-label'>Name</Text>
                         <input className='profile-input'
                         type='text' id='name' name='name' required
                         onChange={e => { return setAlert(false), setName(e.target.value)}}
                          ></input>
                     </Box>
-                    <Box bg='#FDFDFD' borderRadius={10} >
+                    <Box className='modal-add-creditor-info' bg='#FDFDFD' borderRadius={10} >
                         <Text className='profile-label'>Amount Owned</Text>
                         <input className='profile-input'
                          type='number' id='amount-owned' name='amount-owned' required
                          onChange={e => { return setAlert(false), setAmount_owned(e.target.value)}}
                         ></input>
                     </Box>
-                    <Box bg='#FDFDFD' borderRadius={10} >
+                    <Box className='modal-add-creditor-info' bg='#FDFDFD' borderRadius={10} >
                         <Text className='profile-label'>Bank code</Text>
                         <Select placeholder='Select option' size='sm' borderRadius={10}
                         onChange={e => { return setAlert(false),setBank_code(e.target.value)}}>
@@ -95,9 +95,11 @@ import '../Modal/Modal.css'
                         ></input>
                     </Box>
                 </SimpleGrid>
-                <Flex justifyContent='space-between' w='100%' m='40px auto'>
+                <Flex className='add-creditor-btn-container btn-container' justifyContent='space-between' w='100%' m='40px auto'>
                     <button className='add-creditor-btn-close' onClick={closeModal}>close <AiOutlineClose fontSize={15}/></button>
-                    <button onClick={clearModal} className='add-creditor-btn-save' > Add Creditor <AiOutlineArrowRight/></button>
+                    <Box className='white-background-button-container' m='0rem 0rem' >
+                            <button onClick={clearModal} className='white-background-button'><span>Add Creditor</span> <span><AiOutlineArrowRight/></span></button>
+                    </Box>
                     
                 </Flex>
                 {alert && <Text textAlign='center' color='red' fontFamily='Poppins'>Fill in all the details</Text>}

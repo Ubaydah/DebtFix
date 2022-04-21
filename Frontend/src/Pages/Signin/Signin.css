@@ -69,3 +69,29 @@
     line-height: 36px;
     font-style: italic;
 }
+
+.link-homepage-signin{
+    color: #271B3E;
+    font-size: 30px;
+    position: relative;
+    right: 40%;
+}
+
+@media screen and (max-width:800px) {
+    .link-homepage-signin{
+        right: 30%;
+    }
+}
+@media screen and (max-width:520px) {
+    .link-homepage-signin{
+        right: 20%;
+    }
+}
+@media screen and (max-width:390px) {
+    .signin-conntainer-box{
+        width: 300px !important;
+    }
+    .signin-form-forgot-password label{
+        font-size: 12px;
+    }
+}

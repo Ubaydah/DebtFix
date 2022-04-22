@@ -10,10 +10,10 @@ const Footer = () => {
     <>
       <Flex m='0 auto' w='90vw'marginBottom={20} bg='#FBFBFB' p='30px 0'>
           <Box>
-              <Box w={{sm:'70px', md:'100',lg:'120px'}} p='0.5rem 0rem'><img src={logo} alt="logo"></img></Box>
+              <Box w={{base:'90px',sm:'90px', md:'100px',lg:'120px'}} p='0.5rem 0rem'><img src={logo} alt="logo"></img></Box>
               <Text
                 fontFamily='Poppins'
-                fontSize='14px'
+                fontSize={{base:'12px',sm:'12px', md:'14px'}}
                 fontWeight='300'
                 lineHeight='19.69px'
                 color='#786799'
@@ -21,7 +21,7 @@ const Footer = () => {
               >© 2022 DebtFix</Text>
               <Text
                 fontFamily='Poppins'
-                fontSize='14px'
+                fontSize={{base:'12px',sm:'12px', md:'14px'}}
                 fontWeight='300'
                 lineHeight='20px'
                 color='#786799'

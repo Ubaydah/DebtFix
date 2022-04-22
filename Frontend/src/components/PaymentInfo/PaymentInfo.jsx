@@ -6,6 +6,25 @@ import Loading from '../Loading/Loading'
 import {GiHamburgerMenu } from 'react-icons/gi'
 import './PaymentInfo.css'
 const PaymentInfo = () => {
+    
+  const [screenSize, setScreenSize] = useState(window.innerWidth)
+   
+  const checkSize = ()=>{
+    //console.log(window.innerWidth)
+    return setScreenSize(window.innerWidth)
+  }
+  useEffect(()=>{
+    window.addEventListener('resize', checkSize)
+       return ()=>{
+           window.removeEventListener('resize', checkSize)
+       }
+  }) 
+  useEffect(()=>{
+    if (screenSize >=815) { 
+      document.getElementById("sidenav").style.width = "16rem";
+      document.getElementById("links-cont").style.display = "block";
+    }
+   })
 
   const [transactionHistory, setTransactionHistory] = useState([])
    const url = 'https://debt-fix.herokuapp.com/payment/transactions/'
@@ -65,23 +84,24 @@ const PaymentInfo = () => {
   return (
     <>
     <Box className='payment-transaction-container' h='100vh' overflow='scroll'  bg='#F5F5F5' marginLeft='16rem' p='0rem 1rem 4rem 1rem'>
-       <Box onClick={openSidebar} className='sidebar-open-menu' fontSize={25}  color='#705897' fontWeight='bold'><GiHamburgerMenu/></Box>
-        <Flex justifyContent='flex-end'  mb='0' >
+       <Box onClick={openSidebar} className='sidebar-open-menu' fontSize={20}  color='#705897' fontWeight='bold'><GiHamburgerMenu/></Box>
+        {/*<Flex justifyContent='flex-end'  mb='0' >
           <Box m={2} bg='white' w={33} h={33} borderRadius={5} pos='relative' ><BsSearch className='icon'/></Box>
           <Box m={2} p='0rem auto' bg='white'  w={33} h={33} borderRadius={5}pos='relative'><BsBell className='icon'/></Box>
-       </Flex>
+        </Flex>*/}
         <Text
         fontFamily='Volkhov'
-        fontSize='26px'
+        fontSize={{lg:'26px', md:'24px', base:'22px'}}
         fontWeight='700'
         lineHeight='25px'
         color='#271B3E'
+        pt={10}
         pb='3px'
         >Payments</Text>
         <Text
          color='#705897'
          fontFamily='Poppins'
-         fontSize='16px'
+         fontSize={{lg:'16px', md:'16px', base:'14px'}}
          fontWeight='300'
          lineHeight='25px'
         >Keep track of every of your transactions</Text>

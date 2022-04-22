@@ -209,6 +209,7 @@ Tr:nth-child(even) {background-color: #f2f2f2;}
         display: block !important;
         width: 60% !important;
         margin: 1rem auto !important;
+        padding: 0 1rem;
     }
 }
 @media screen and (max-width:815px) {
@@ -226,9 +227,7 @@ Tr:nth-child(even) {background-color: #f2f2f2;}
     }
 }
 @media screen and (max-width:520px) {
-    .glow-on-hover{
-        padding: 12px 15px;
-    }
+
     .dashboard-stat{
         width: 130px !important;
     }
@@ -242,17 +241,15 @@ Tr:nth-child(even) {background-color: #f2f2f2;}
         width: 100px !important;
         height: 100px !important;
     }
-    .glow-on-hover{
-        padding: 10px 12px !important;
+    .table-heading{
+        font-size: 12px !important;
     }
+   
 }
 
 @media screen and (max-width:370px) {
     .dashboard-stat{
-        width: 80px !important;
-        height: 80px !important;
-    }
-    .glow-on-hover{
-        padding: 8px 12px !important;
+        width: 90px !important;
+        height: 90px !important;
     }
 }

@@ -68,28 +68,47 @@
     color: #6137a3;
     line-height: 36px;
     font-style: italic;
+    font-size: 18px;
 }
 
 .link-homepage-signin{
     color: #271B3E;
     font-size: 30px;
-    position: relative;
-    right: 40%;
+    position: absolute;
+    left: 2%;
+}
+.sign-in-logo{
+    width: 150px !important;
+    margin: 0.5rem auto;
 }
 
-@media screen and (max-width:800px) {
-    .link-homepage-signin{
-        right: 30%;
-    }
-}
 @media screen and (max-width:520px) {
+
+    .sign-in-logo{
+        width: 120px !important;
+    }
+    .signin-form input{
+        height: 40px;
+    }
+
+    .signin-button{
+        width: 60%;
+        padding: 10px 0;
+        border-radius: 8px;
+    }
     .link-homepage-signin{
-        right: 20%;
+        font-size: 25px;
+    }
+    .signin-user{
+        font-size: 14px;
+    }
+    .signin-conntainer-box{
+        padding: 10px !important;
     }
 }
 @media screen and (max-width:390px) {
     .signin-conntainer-box{
-        width: 300px !important;
+        width: 330px !important;
     }
     .signin-form-forgot-password label{
         font-size: 12px;

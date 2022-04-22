@@ -59,7 +59,7 @@ const Sidebar = () => {
     <aside ref={node}  className='profile-sidebar' id='sidenav'>
         <Flex className='sidebar-menu' > {/*p='1.5rem 1rem'*/} 
             <Box  className='sidebar-logo'><img src={Logo}></img></Box>
-            <Box onClick={closeSidebar} className='sidebar-close-menu' fontSize={30} pt='8px' color='#705897' fontWeight='bold'><AiOutlineClose/></Box>
+            <Box onClick={closeSidebar} className='sidebar-close-menu' fontSize={{base:'25px',md:'30px'}} pt='8px' color='#705897' fontWeight='bold'><AiOutlineClose/></Box>
         </Flex>
         <List p='1rem 0.2rem'
            display='block'

@@ -91,7 +91,9 @@
   }
 
 
-
+ .settings-input-password{
+  width: 100%;
+ }
   @media screen and (max-width:1162px) {
     .settings-item-container{
       width: 90% !important;
@@ -109,8 +111,9 @@
       width: 100% !important;
     }
     .settings-input{
-      width: 95% !important;
+      width: 100% !important;
     }
+    
   }
 
   @media screen and (max-width:815px) {
@@ -127,28 +130,33 @@
   .settings-password-container{
     width: 100% !important;
   }
+  
 }
 
 @media screen and (max-width:500px){
+  
   .settings-item{
     flex-direction: column;
   }
   .settings-item-label{
     max-width: 100% !important;
+    
   }
   .second-input{
     position: relative;
     left: 180px;
     top: -53px;
+    width: 50%;
   }
   .settings-item-2-label{
+    
     width: 100% !important;
   }
   .settings-item-2-input {
     width: 100% !important;
   }
-  .settings-item-input{
-    width: 40% !important;
+  .item2-input{
+    width: 100% !important;
   }
 
 
@@ -161,5 +169,21 @@
   }
   .settings-password-container{
     width: 100% !important;
+  }
+
+  .edit-btn{
+    height: 2.2rem;
+    font-size: 10px;
+    border-radius: 5px;
+    
+  }
+}
+
+@media screen and (max-width:370px) {
+  .second-input{
+    position: relative;
+    left: 160px;
+    top: -53px;
+    width: 100%;
   }
 }

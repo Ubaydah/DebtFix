@@ -4,6 +4,12 @@ import {Box, Flex, Text,Spacer} from'@chakra-ui/react'
 import Logo from '../../Images/Logosign.svg'
 import './Signup.css'
 import { useNavigate, Link } from 'react-router-dom'
+
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+
+
 const Signup = () => {
   const baseUrl = "https://debt-fix.herokuapp.com/register/"
   const [email, setEmail] = useState()
@@ -58,27 +64,31 @@ const Signup = () => {
   useEffect(
     () => {
       console.log(alert)
-      let timer1 = setTimeout(() =>  setAlert({message1:'',message2:''}), 5000);
+      let timer1 = setTimeout(() =>  setAlert({message1:'',message2:''}), 2000);
       return () => {
         clearTimeout(timer1);
       };
       
     },
     [alert]);
-  
+
+    useEffect(() => {
+      AOS.init();
+      AOS.refresh();
+    }, []);
   return (
     <>
-    <Flex p={7} justifyContent='center' bg='#e5e5e5' >
+    <Flex  p={{base:'2',md:'7'}} justifyContent='center' bg='#e5e5e5' >
     <Link to='/' className='link-homepage-signin'><AiOutlineArrowLeft/></Link>
-      <img src={Logo}alt="logo"></img>
+      <img  className='sign-in-logo' src={Logo}alt="logo"></img>
     </Flex>
-      <Flex justifyContent='center' bg='#e5e5e5'>
-        <Box className='signin-conntainer-box' w={{base:'350px', sm:'400px',md:'554px',}} borderRadius={10} bg='#FFFFFF' overflow='hidden' m='1rem 0 5rem 0' p={10}>
+      <Flex  justifyContent='center' bg='#e5e5e5'>
+        <Box data-aos="fade-up" data-aos-duration="1000" className='signin-conntainer-box' w={{base:'350px', sm:'400px',md:'554px',}} borderRadius={10} bg='#FFFFFF' overflow='hidden' m='1rem 0 5rem 0' p={{base:'5',md:'10'}}>
           <Box textAlign='center' >
             <Text
                fontFamily='Volkhov'
-               fontSize='28px'
-               fontWeight='700'
+               fontSize={{base:'22px', sm:'24px', md:'28px',lg:'28px'}}
+               fontWeight={{base:'600',md:'700'}}
                lineHeight='36.12px'
                color='#271B3E'
                letterSpacing={1}
@@ -86,7 +96,7 @@ const Signup = () => {
              >Create an Account</Text>
              <Text
              fontFamily='Poppins'
-             fontSize='16px'
+             fontSize={{base:'13px', sm:'14px', md:'16px',lg:'16px'}}
              fontWeight='300'
              lineHeight='24px'
              color='#271B3E'
@@ -116,7 +126,7 @@ const Signup = () => {
                  onChange={e => setPassword(e.target.value)}/>
              </form>
           </Box>
-          <Flex m='3rem 0'>
+          <Flex m='2rem 0'>
             <form className='signin-form-forgot-password'>
               <input type='checkbox' className='signin-form-checkbox'/>
               <label>Remember me</label>
@@ -130,13 +140,13 @@ const Signup = () => {
             color='#271B3E'
             >Forgot Password</Text>
           </Flex>
-          <Text m='5px 3px' color='red' fontSize='Poppins' textAlign='center'>{alert.message1}<Link className='signin-user' to='/signin'>{alert.message2}</Link></Text>
+          <Text m='5px 3px' color='red' fontSize='12px' fontFamily='Poppins' textAlign='center'>{alert.message1}<Link className='signin-user' to='/signin'>{alert.message2}</Link></Text>
           <Box textAlign='center'>
               <button onClick={handleSubmit} className='signin-button'>Create an account</button>
           </Box>
           <Text
            fontFamily='Poppins'
-           fontSize='18px'
+           fontSize={{base:'10px',sm:'14px', md:'18px'}}
            fontWeight='medium'
            lineHeight='24px'
            color='1F1F1F'

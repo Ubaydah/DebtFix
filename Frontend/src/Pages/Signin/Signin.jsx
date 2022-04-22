@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom'
 import {AiOutlineArrowLeft} from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
 
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 
 const Signin = () => {
   const baseUrl = "https://debt-fix.herokuapp.com/login/"
@@ -62,23 +65,35 @@ const Signin = () => {
       
     }
      
-   
+    useEffect(
+      () => {
+        let timer1 = setTimeout(() =>  setAlert({text:'',link:''}), 2000);
+        return () => {
+          clearTimeout(timer1);
+        };
+        
+      },
+      [alert]);
   
-    
+    useEffect(() => {
+        AOS.init();
+        AOS.refresh();
+      }, []);
+
   return (
     <>
     
-      <Flex p={10} justifyContent='center' bg='#e5e5e5' >
+      <Flex p={{base:'2',md:'5'}} justifyContent='center' bg='#e5e5e5' >
        <Link to='/' className='link-homepage-signin'><AiOutlineArrowLeft/></Link>
-        <img src={Logo}alt="logo"></img>
+        <img className='sign-in-logo' src={Logo}alt="logo"></img>
       </Flex>
       <Flex justifyContent='center' bg='#e5e5e5'>
-        <Box className='signin-conntainer-box' w={{base:'350px', sm:'400px',md:'554px',}} borderRadius={10} bg='#FFFFFF' overflow='hidden' m='1rem 0 5rem 0' p={10}>
+        <Box data-aos="fade-up" data-aos-duration="1000" className='signin-conntainer-box' w={{base:'350px', sm:'400px',md:'554px',}} borderRadius={10} bg='#FFFFFF' overflow='hidden' m='1rem 0 5rem 0' p={10}>
           <Box textAlign='center' >
             <Text
                fontFamily='Volkhov'
-               fontSize='28px'
-               fontWeight='700'
+               fontSize={{base:'22px', sm:'24px', md:'28px',lg:'28px'}}
+               fontWeight={{base:'600',md:'700'}}
                lineHeight='36.12px'
                color='#271B3E'
                letterSpacing={1}
@@ -86,7 +101,7 @@ const Signin = () => {
              >Sign into your Account</Text>
              <Text
              fontFamily='Poppins'
-             fontSize='16px'
+             fontSize={{base:'13px', sm:'14px', md:'16px',lg:'16px'}}
              fontWeight='300'
              lineHeight='24px'
              color='#271B3E'
@@ -135,7 +150,7 @@ const Signin = () => {
           </Box>
           <Text
            fontFamily='Poppins'
-           fontSize='18px'
+           fontSize={{base:'14px',sm:'14px', md:'18px'}}
            fontWeight='medium'
            lineHeight='24px'
            color='1F1F1F'

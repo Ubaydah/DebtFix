@@ -17,6 +17,7 @@
     padding: 10px 10px;
     border-radius: 0px;
     transition: all 0.3s linear ;
+    font-size: 18px;
 }
 
 .links-container{
@@ -80,4 +81,28 @@
     .profile-sidebar{
         width: 16rem;
     }
+}
+
+@media screen and (max-width:520px) {
+    .links{
+        font-size: 16px;
+        padding: 5px 7px;
+    }
+    .sidebar-logo{
+        position: relative;
+        top: 0px;
+        
+    }
+    .sidebar-logo img{
+        height: 2rem;
+        width: 8rem;
+    }    
+
+    .sidebar-close-menu{
+        
+        margin-left: 80px;
+        
+    }
+
+    
 }

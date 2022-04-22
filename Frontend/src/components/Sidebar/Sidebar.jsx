@@ -1,46 +1,98 @@
-import React from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import './Sidebar.css'
 import {GiHamburgerMenu } from 'react-icons/gi'
 import {BsFillGridFill} from 'react-icons/bs'
 import {MdPayment} from 'react-icons/md'
 import {IoMdSettings} from 'react-icons/io'
-import {AiOutlineUserDelete} from 'react-icons/ai'
+import {AiOutlineUserDelete,AiOutlineClose} from 'react-icons/ai'
 import Logo from '../../Images/Logo.svg'
 import {Box, Flex, Spacer,List,ListItem,ListIcon,} from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 
 const Sidebar = () => {
+
+    const node = useRef();
+
     const user = JSON.parse(localStorage.getItem('user'));
     console.log(user)
+    const logout = ()=>{
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("username");
+        localStorage.removeItem("useremail");
+       
+    }
+    
+
+    const closeSidebar = ()=>{
+        document.getElementById("sidenav").style.width = "0";
+        
+        document.getElementById("links-cont").style.display = "none";
+
+    }
+
+    const handleClick = e => {
+        if (node.current.contains(e.target)) {
+          // inside click
+          return;
+        }
+
+        document.getElementById("sidenav").style.width = "0";
+        
+        document.getElementById("links-cont").style.display = "none";
+        // outside click 
+        
+      };
+
+    useEffect(() => {
+        // add when mounted
+        document.addEventListener("mousedown", handleClick);
+        // return function to be called when unmounted
+        return () => {
+          document.removeEventListener("mousedown", handleClick);
+        };
+      }, []);
+            
+
   return (
     <>
-    <aside className='profile-sidebar' w='13rem'>
-        <Flex alignItems='center' p='1.5rem 1rem'>
-            <Box fontSize={30} color='#705897'><GiHamburgerMenu/></Box>
-            <Spacer/>
-            <Box marginRight='2rem' width={99} h={25}><img src={Logo}></img></Box>
+    <aside ref={node}  className='profile-sidebar' id='sidenav'>
+        <Flex className='sidebar-menu' > {/*p='1.5rem 1rem'*/} 
+            <Box  className='sidebar-logo'><img src={Logo}></img></Box>
+            <Box onClick={closeSidebar} className='sidebar-close-menu' fontSize={30} pt='8px' color='#705897' fontWeight='bold'><AiOutlineClose/></Box>
         </Flex>
-        <List spacing={5} p='3rem 1rem'
-        fontSize={20}
-        fontWeight='500'
-        fontFamily='Poppins'
-        >
-            <ListItem fontSize={20}>
-                <ListIcon marginRight={5} as={BsFillGridFill} color='#898989' />
-                  <Link to='/profile'>Dashboard</Link> 
+        <List p='1rem 0.2rem'
+           display='block'
+           fontSize={18}
+           fontWeight='500'
+           fontFamily='Poppins'
+           w='16rem'
+           >
+            <ListItem id='links-cont' className='links-container'>
+                <NavLink className='links' to='/profile/dashboard' style={({ isActive }) => ({ background: isActive ? "rgba(112, 88, 151, 0.15)" : "none" })}>
+                   <ListIcon marginRight={5} as={BsFillGridFill} color='#898989' />Dashboard
+                </NavLink>
             </ListItem>
-            <ListItem>
-                <ListIcon marginRight={5} as={MdPayment} color='#898989' />
-                 <Link to='/profile/payment'>Payment</Link>
+            <ListItem id='links-cont' className='links-container'>
+                 <NavLink className='links' to='/profile/creditors' style={({ isActive }) => ({ background: isActive ? "rgba(112, 88, 151, 0.15)" : "none" })} >
+                    <ListIcon marginRight={5} as={MdPayment}  color='#898989' />Creditors
+                </NavLink>
             </ListItem>
-            <ListItem>
-                <ListIcon marginRight={5} as={IoMdSettings} color='#898989' />
-                <Link to='/profile/settings'>Settings</Link>
+           
+            <ListItem id='links-cont' className='links-container'>
+                <NavLink className='links' to='/profile/payment' style={({ isActive }) => ({ background: isActive ? "rgba(112, 88, 151, 0.15)" : "none" })} >
+                    <ListIcon marginRight={5}  as={MdPayment}  color='#898989' />Payment
+                </NavLink>
             </ListItem>
-            <ListItem>
-                <ListIcon marginRight={5} as={AiOutlineUserDelete} color='#898989' />
-                Logout
+            <ListItem id='links-cont' className='links-container'>
+                <NavLink className='links' to='/profile/settings' style={({ isActive }) => ({ background: isActive ? "rgba(112, 88, 151, 0.15)" : "none" })}>
+                    <ListIcon marginRight={5} as={IoMdSettings} color='#898989' />Settings
+                </NavLink>
+            </ListItem>
+            <ListItem id='links-cont' className='links-container' onClick={logout}>
+                <NavLink onClick={logout} to='/' className='links' style={({ isActive }) => ({ background: isActive ? "rgba(112, 88, 151, 0.15)" : "none" })} >
+                    <ListIcon marginRight={5} as={AiOutlineUserDelete} color='#898989' />Logout
+                </NavLink>
             </ListItem>
         </List>
     </aside>

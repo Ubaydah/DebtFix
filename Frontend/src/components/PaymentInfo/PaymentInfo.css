@@ -1,0 +1,9 @@
+.info-heading-topic-payment:hover{
+   border: 2px solid #705897;
+}
+
+@media screen and (max-width:815px) {
+   .payment-transaction-container{ 
+       margin-left:0 !important;
+   }
+}

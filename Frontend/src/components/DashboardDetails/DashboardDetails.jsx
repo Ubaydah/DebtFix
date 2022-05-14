@@ -25,7 +25,7 @@ const DashboardDetails = ({username,id, setLoading}) => {
 
   const [screenSize, setScreenSize] = useState(window.innerWidth)
    
-  const checkSize = ()=>{
+ /* const checkSize = ()=>{
     //console.log(window.innerWidth)
     return setScreenSize(window.innerWidth)
   }
@@ -40,7 +40,7 @@ const DashboardDetails = ({username,id, setLoading}) => {
       document.getElementById("sidenav").style.width = "16rem";
       document.getElementById("links-cont").style.display = "block";
     }
-},[screenSize])
+},[screenSize])*/
  
    const [addCreditorModal, setAddcreditorModal] = useState(false)
    const [showEditModal, setShowEditModal] = useState(false)
@@ -155,8 +155,8 @@ const DashboardDetails = ({username,id, setLoading}) => {
           p='0.5rem 0'
           >Quick Actions</Text>
           <Flex w={{base:'90%', md:'70%',lg:'70%'}} color='#2A0B9C' justifyContent='space-between'>
-            <button onClick={addCreditor} className='button-debt glow-on-hover '><AiOutlineUsergroupAdd/> Add Creditor</button>
-            <button onClick={payCreditor} className='button-debt glow-on-hover '><AiOutlineUsergroupAdd/>Pay creditor</button>
+            <button onClick={addCreditor} className='glow-on-hover '><AiOutlineUsergroupAdd/> Add Creditor</button>
+            <button onClick={payCreditor} className='glow-on-hover '><AiOutlineUsergroupAdd/>Pay creditor</button>
           </Flex>
           <Text
            fontFamily='Poppins'
@@ -200,7 +200,7 @@ const DashboardDetails = ({username,id, setLoading}) => {
                   <Th className='table-heading'>Creditor</Th>
                   <Th className='table-heading'>AmountOwned</Th>
                   <Th className='table-heading'>AccountNo</Th>
-                  <Th className='table-heading'>Date Due</Th>
+                  <Th className='table-heading'>Date Added</Th>
                   <Th className='table-heading'>Status</Th>
                   <Th className='table-heading'>Activity</Th>
                   </Tr>
@@ -216,7 +216,7 @@ const DashboardDetails = ({username,id, setLoading}) => {
                         <Td>{name}</Td>
                         <Td>{amount_owned}</Td>
                         <Td>{account_number}</Td>
-                        <Td>{date_due}</Td>
+                        <Td>{new Date (date_due).toLocaleDateString()}</Td>
                         <Td color={status==='paid'? 'green' :'red'}>{status}</Td>
                         <Td><HStack>
                             <Icon onClick={()=>editDebtorDetails(id,name,amount_owned,account_number, bank_code)} className='edit' color='green' as={AiOutlineEdit}></Icon>

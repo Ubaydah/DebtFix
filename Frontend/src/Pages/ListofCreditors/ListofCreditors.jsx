@@ -19,7 +19,7 @@ const ListofCreditors = () => {
     
   const [screenSize, setScreenSize] = useState(window.innerWidth)
    
-  const checkSize = ()=>{
+  /*const checkSize = ()=>{
     //console.log(window.innerWidth)
     return setScreenSize(window.innerWidth)
   }
@@ -34,8 +34,8 @@ const ListofCreditors = () => {
       document.getElementById("sidenav").style.width = "16rem";
       document.getElementById("links-cont").style.display = "block";
     }
-  },[screenSize])
-
+  })
+  */
 
     const [addCreditorModal, setAddcreditorModal] = useState(false)
     const [showEditModal, setShowEditModal] = useState(false)
@@ -124,7 +124,11 @@ const ListofCreditors = () => {
     
   }
   if (loading) {
-    return <Loading/>
+
+    return( <>
+      <Sidebar/>
+      <Loading/>
+    </>)
   }
 
 return(
@@ -139,7 +143,7 @@ return(
       <Box>
         <Text
         fontFamily='Volkhov'
-        fontSize={{lg:'28px', md:'26px', base:'22px'}}
+        fontSize={{lg:'28px', md:'26px', base:'23px'}}
         fontWeight='700'
         lineHeight='25px'
         color='#2A0B9C'
@@ -157,7 +161,7 @@ return(
         <Box w='100%' p='15px 0px 0px 0px'>
            <Text
            fontFamily='Poppins'
-           fontSize='18px'
+           fontSize={{lg:'18px', md:'18px', base:'16px'}}
            fontWeight='bold'
            color='#2A0B9C'
         
@@ -212,7 +216,7 @@ return(
                   <Th className='table-heading'>Creditor</Th>
                   <Th className='table-heading'>AmountOwned</Th>
                   <Th className='table-heading'>AccountNo</Th>
-                  <Th className='table-heading'>Date Due</Th>
+                  <Th className='table-heading'>Date Added</Th>
                   <Th className='table-heading'>Status</Th>
                   <Th className='table-heading'>Activity</Th>
                   </Tr>
@@ -221,14 +225,16 @@ return(
                 {
                   creditors?.map((creditor)=>{
                     const {id,name,amount_owned, account_number,status, bank_code, date_due} = creditor
-                    //console.log(id)
+                    //console.log(date_due,'date due')
+                    //const c = { time: date_due };
+                    //console.log(new Date(c.time).toLocaleDateString(), "converted")
                     return (
                       <Tr color='#271B3E' opacity='90%' border='1px solid rgba(58, 28, 107, 0.15)'
                       fontFamily='Poppins' fontSize='14px' lineHeight='21px'>
                         <Td className='table-data'>{name}</Td>
                         <Td className='table-data'>{amount_owned}</Td>
                         <Td className='table-data'>{account_number}</Td>
-                        <Td className='table-data'>{date_due}</Td>
+                        <Td className='table-data'>{new Date (date_due).toLocaleDateString()}</Td>
                         <Td className='table-data' color={status==='paid'? 'green' :'red'}>{status}</Td>
                         <Td className='table-data'><HStack>
                             <Icon onClick={()=>editDebtorDetails(id,name,amount_owned,account_number, bank_code)} className='edit' color='green' as={AiOutlineEdit}></Icon>

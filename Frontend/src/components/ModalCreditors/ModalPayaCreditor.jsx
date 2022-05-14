@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Box, Flex, Spacer, Text, Icon, Select, Button, Radio, RadioGroup, Stack} from '@chakra-ui/react'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { GetEndpoint } from '../../services/Accessdetails'
@@ -26,7 +26,8 @@ const ModalPayaCreditor = ({setPaycreditorModal,creditors}) => {
     
     
     const clearModal = async (e)=>{
-        
+
+       
         if ((name && narration) && ( optionalAmt || radioValue)) {
             console.log("filled correctly")
             const filteredCreditors = creditors.filter((creditor)=>{
@@ -72,6 +73,19 @@ const ModalPayaCreditor = ({setPaycreditorModal,creditors}) => {
     const closeModal = ()=>{
         setPaycreditorModal(false)
     }
+
+    useEffect(
+        () => {
+          console.log(alert)
+          let timer1 = setTimeout(() => setPaymentText({message:'',status:''}), 3000);
+          let timer2 = setTimeout(() => setAlert(''), 3000);
+          return () => {
+            clearTimeout(timer1);
+            clearTimeout(timer2)
+          };
+          
+        },
+        [alert, paymentText]);
   return (
     <>
      <div className='modal-container'>
@@ -79,7 +93,7 @@ const ModalPayaCreditor = ({setPaycreditorModal,creditors}) => {
             <div className="modal-profile-update">
                 <Text
                     textAlign='center' 
-                    fontSize='20px'
+                    fontSize={{md:'20px', sm:'18px', base:'15px', lg:'20px', xl:'20px'}}
                     fontFamily='Volkhov'
                     fontWeight='400'
                 >Pay a Creditor</Text>

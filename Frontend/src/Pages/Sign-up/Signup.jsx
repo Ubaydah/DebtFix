@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import {AiOutlineArrowLeft} from 'react-icons/ai'
-import {Box, Flex, Text,Spacer} from'@chakra-ui/react'
+import {Box, Flex, Text,Spacer, Spinner} from'@chakra-ui/react'
 import Logo from '../../Images/Logosign.svg'
 import './Signup.css'
 import { useNavigate, Link } from 'react-router-dom'
+import {toast, ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import validator from 'validator'
+  
 
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -11,6 +15,8 @@ import "aos/dist/aos.css";
 
 
 const Signup = () => {
+
+  const [pending,setPending] = useState(false)
   const baseUrl = "https://debt-fix.herokuapp.com/register/"
   const [email, setEmail] = useState()
   const [password, setPassword] = useState('')
@@ -35,27 +41,36 @@ const Signup = () => {
   const handleSubmit = async (e) =>{
     e.preventDefault();
     const details = {email, password, username}
-    //setIspending(true)
+    
     if(email && password && username){
+
+      setPending(true)
+      if (!validator.isEmail(email)) {
+        setPending(false)
+        return toast.error('Enter a valid mail')
+      } 
       try {
         const response = await SignupUser(details)
         console.log(response)
         if("id" in response){
+           toast.success("Successfully registered")
            console.log(response)
+           setPending(false)
            navigate("/signin", { replace: true })
         }
         else{
+          toast.error('Email or username already exists!')
         setAlert({message1:'User with the email or Username already exist',message2:'Sign in instead?'})
+        setPending(false)
         
         }
       } catch (error) {
         setAlert({message1:'Unkown Error', message2:''})
-        
-        console.log(error)
-        console.log('errorrrrrrrrrrrrrrrr')
+        setPending(false)
       }
     }else{
       setAlert({message1:'Fill in every field correctly', message2:''})
+      toast.error("Please fill every details")
     }
     
     
@@ -78,6 +93,10 @@ const Signup = () => {
     }, []);
   return (
     <>
+    <ToastContainer 
+        autoClose={2000}
+        position= "top-center"
+      />
     <Flex  p={{base:'2',md:'7'}} justifyContent='center' bg='#e5e5e5' >
     <Link to='/' className='link-homepage-signin'><AiOutlineArrowLeft/></Link>
       <img  className='sign-in-logo' src={Logo}alt="logo"></img>
@@ -126,7 +145,7 @@ const Signup = () => {
                  onChange={e => setPassword(e.target.value)}/>
              </form>
           </Box>
-          <Flex m='2rem 0'>
+          <Flex m='0.5rem 0'>
             <form className='signin-form-forgot-password'>
               <input type='checkbox' className='signin-form-checkbox'/>
               <label>Remember me</label>
@@ -140,9 +159,9 @@ const Signup = () => {
             color='#271B3E'
             >Forgot Password</Text>
           </Flex>
-          <Text m='5px 3px' color='red' fontSize='12px' fontFamily='Poppins' textAlign='center'>{alert.message1}<Link className='signin-user' to='/signin'>{alert.message2}</Link></Text>
+          <Text m='3px 5px' color='red' fontSize='14px' fontFamily='Poppins' textAlign='center'>{alert.message1}<Link className='signin-user' to='/signin'>{alert.message2}</Link></Text>
           <Box textAlign='center'>
-              <button onClick={handleSubmit} className='signin-button'>Create an account</button>
+              <button onClick={handleSubmit} className='signin-button'>{pending? <Spinner size='lg' thickness='4px'/> : "Create an account"}</button>
           </Box>
           <Text
            fontFamily='Poppins'

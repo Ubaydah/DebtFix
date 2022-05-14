@@ -9,7 +9,7 @@ import SettingsPassword from './SettingsPassword'
 
 const SettingsInfo = () => {
 
-  const [screenSize, setScreenSize] = useState(window.innerWidth)
+  /*const [screenSize, setScreenSize] = useState(window.innerWidth)
    
   const checkSize = ()=>{
     //console.log(window.innerWidth)
@@ -27,7 +27,7 @@ const SettingsInfo = () => {
       document.getElementById("links-cont").style.display = "block";
     }
 
-  })
+  })*/
 
     const [id, setId] = useState();
     const updateUrl = `https://debt-fix.herokuapp.com/profile/${id}/update/`

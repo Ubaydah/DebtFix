@@ -7,7 +7,7 @@ import {GiHamburgerMenu } from 'react-icons/gi'
 import './PaymentInfo.css'
 const PaymentInfo = () => {
     
-  const [screenSize, setScreenSize] = useState(window.innerWidth)
+  /*const [screenSize, setScreenSize] = useState(window.innerWidth)
    
   const checkSize = ()=>{
     //console.log(window.innerWidth)
@@ -24,7 +24,7 @@ const PaymentInfo = () => {
       document.getElementById("sidenav").style.width = "16rem";
       document.getElementById("links-cont").style.display = "block";
     }
-   })
+   })*/
 
   const [transactionHistory, setTransactionHistory] = useState([])
    const url = 'https://debt-fix.herokuapp.com/payment/transactions/'
@@ -151,7 +151,7 @@ const PaymentInfo = () => {
                         <Td>{transaction_type}</Td>
                         <Td>{amount}</Td>
                         <Td>{narration}</Td>
-                        <Td>{updated_at}</Td>
+                        <Td>{new Date (updated_at).toLocaleDateString()}</Td>
                         <Td>{transaction_status}</Td>
                         <Td>{paystack_reference}</Td>
                       </Tr>

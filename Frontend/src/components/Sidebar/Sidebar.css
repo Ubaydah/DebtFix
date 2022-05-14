@@ -64,7 +64,7 @@
 }
 .sidebar-logo img{
     height: 4rem;
-    width: 13rem;
+    width: 11rem;
     
 }
 
@@ -79,14 +79,15 @@
 
 @media screen and (min-width:815px) {
     .profile-sidebar{
-        width: 16rem;
+        width: 16rem !important;
     }
 }
+
 
 @media screen and (max-width:520px) {
     .links{
         font-size: 16px;
-        padding: 5px 7px;
+        padding: 10px 7px;
     }
     .sidebar-logo{
         position: relative;
@@ -95,12 +96,12 @@
     }
     .sidebar-logo img{
         height: 2rem;
-        width: 8rem;
+        width: 7rem;
     }    
 
     .sidebar-close-menu{
         
-        margin-left: 80px;
+        margin-left: 100px;
         
     }
 

@@ -14,7 +14,7 @@
     border-radius: 5px;
     background-color: #573498;
 }
-.piechart-checkbox2{
+.piechart-checkbox2{ 
     width: 20px;
     height: 20px;
     border-radius: 5px;
@@ -209,7 +209,6 @@ Tr:nth-child(even) {background-color: #f2f2f2;}
         display: block !important;
         width: 60% !important;
         margin: 1rem auto !important;
-        padding: 0 1rem;
     }
 }
 @media screen and (max-width:815px) {
@@ -232,7 +231,7 @@ Tr:nth-child(even) {background-color: #f2f2f2;}
         width: 130px !important;
     }
     .analytics-dashboard{
-        width: 300px !important;
+        width: 280px !important;
     }
 }
 

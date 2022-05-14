@@ -69,6 +69,7 @@
     line-height: 36px;
     font-style: italic;
     font-size: 18px;
+    padding-left: 7px;
 }
 
 .link-homepage-signin{
@@ -103,7 +104,7 @@
         font-size: 14px;
     }
     .signin-conntainer-box{
-        padding: 10px !important;
+        padding: 15px !important;
     }
 }
 @media screen and (max-width:390px) {

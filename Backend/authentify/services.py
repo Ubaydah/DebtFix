@@ -2,6 +2,7 @@ import logging
 import requests
 from uuid import uuid4
 from django.conf import settings
+from django.db import transaction
 from requests.exceptions import RequestException
 
 logger = logging.getLogger(__name__)
@@ -26,6 +27,7 @@ class Paystack:
             logger.exception(err)
             return None
 
+    @transaction.atomic()
     def initialize_transaction(self, payload):
 
         try:
@@ -46,6 +48,7 @@ class Paystack:
             logger.exception(err)
             return None
 
+    @transaction.atomic()
     def initialize_transfer(self, payload):
         try:
             response = requests.post(

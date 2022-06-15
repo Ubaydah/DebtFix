@@ -19,6 +19,7 @@ from .serializers import (
     DepositFundsSerializer,
     PayCreditorSerializer,
     WalletTransactionSerializer,
+    ResetPasswordSerializer,
 )
 from .tasks import handle_webhook
 from .enums import Status
@@ -55,6 +56,20 @@ class Register(CreateAPIView):
     permission_classes = ()
     serializer_class = UserSerializer
     queryset = CustomUser.objects.all()
+
+
+class ResetPasswordConfirm(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ResetPasswordSerializer
+
+    def post(self, request):
+        user = request.user
+        serializer = self.serializer_class(
+            user, data=request.data, context={"request": request}
+        )
+        serializer.is_valid(raise_exception=True)
+
+        return Response({"detail": "Your password has been successfully changed"})
 
 
 class UserInfo(APIView):

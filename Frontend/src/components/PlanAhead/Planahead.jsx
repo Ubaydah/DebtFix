@@ -1,6 +1,8 @@
 import React from 'react'
 import {Box, Flex,Text, Center} from '@chakra-ui/react'
 import './Planahead.css'
+import { Link } from 'react-router-dom'
+
 const Planahead = () => {
   return (
     <>
@@ -8,9 +10,9 @@ const Planahead = () => {
       <Box maxW='800px' textAlign='center' p={10}>
           <Text
            fontFamily='Volkhov'
-           fontSize='36px'
+           fontSize= {{lg:'36px',md:'32px',sm:'26px'}}
            fontWeight='bold'
-           lineHeight='46.44px'
+           lineHeight={{lg:'46.44px',md:'30px'}}
            color='#FFFFFF'
            textAlign='center'
            p='1rem 0 0 0'
@@ -19,9 +21,9 @@ const Planahead = () => {
           </Text>
           <Text
             fontFamily='Volkhov'
-            fontSize='22px'
+            fontSize={{lg:'22px',md:'19px',sm:'15px'}}
             fontWeight='hairline'
-            lineHeight='33px'
+            lineHeight={{lg:'33px',md:'25px'}}
             color='#FFFFFF'
             textAlign='center'
             p='1.7rem 0 0 0'
@@ -30,7 +32,7 @@ const Planahead = () => {
             Whether debts, bills or monetary promises, 
             DebtFix will fix it all with just one click.
           </Text>
-          <button  className='button-create-now'>Create free Account</button>
+          <Link to='/signup'><button  className='button-create-now'>Create free Account</button></Link>
          
       </Box>
     </Center>

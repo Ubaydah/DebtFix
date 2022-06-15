@@ -1,29 +1,48 @@
 .button{
     font-family:'Poppins';
-     font-size:'18px';
+    font-size:'15px';
     color: white;
     padding: 5px 15px;
 }
 .btn-signin{
     font-family:'Poppins';
-     font-size:'18px';
+    font-size:'15px';
     padding: 8px 15px;
     text-align:center; 
     font-weight: 400;
 }
 
+.sign-navbar{
+  padding: 3px 17px;
+  border:1px solid #3A1C6B;
+  border-radius: 10px;
+  font-size: 14px;
+}
+.create-navbar{
+  padding: 7px 20px;
+  font-family:'Poppins';
+  font-size:'15px';
+  color: white;
+  background-color: #3A1C6B;
+  border-radius: 10px;
+  font-size: 14px;
+}
+.btn-signnin-container{
+  display: none;
+}
+
+.displayHamburgerMenu{
+  display: none;
+}
 .nav-links-container{
-    position: absolute;
-    top: 60px;
-    right: 0;
-    width: 10rem;
     transition: all linear 2s !important;
     background-color: #F6F6F6;
-    margin: 0.5rem 3rem;
-    z-index: 2;
-    border-radius: 10px;
-    
     box-shadow: var(--light-shadow);
+    width: 100%;
+    padding: 0%;
+    transition: 2s linear;
+    animation: showNav 300ms ease-in-out forwards;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .nav-links{
@@ -31,17 +50,17 @@
     list-style: none;
     transition: linear 2s;
     width: 100%;
-    animation: showNav 300ms ease-in-out forwards;
-    padding: 20px 0px;
+    padding: 20px 10px;
+    
 }
 
 .nav-links li {
-    padding: 5px;
     font-family: Poppins;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 16px;
     color: #7156a0;
     transition: all 0.5s linear;
+    padding: 10px 15px;
 }
 
   .nav-links li:hover{
@@ -71,5 +90,25 @@
     .menu{
         display: none !important;
     }
+    .displayHamburgerMenu{
+      display: block !important;
+    }
 
 }
+
+@media screen and (min-width:996px) {
+  .nav-links-container{
+    display: none;
+  }
+}
+
+@media screen and (max-width:774px) {
+
+  .btn-signnin-container{
+    display: block;
+  }
+  .navbar-links-sign{
+    display: none !important;
+  }
+}
+

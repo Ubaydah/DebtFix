@@ -1,14 +1,21 @@
 import React,{useEffect, useState} from 'react'
-import {Box, Flex, Text,Spacer} from'@chakra-ui/react'
+import {Box, Flex, Text,Spacer, Spinner} from'@chakra-ui/react'
 import Logo from '../../Images/Logosign.svg'
 import './Signin.css'
 import { Link } from 'react-router-dom'
 import {AiOutlineArrowLeft} from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
+import {toast, ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 
 const Signin = () => {
   const baseUrl = "https://debt-fix.herokuapp.com/login/"
+   
+   const [pending,setPending] = useState(false)
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const [isPending, setIspending] = useState(false)
@@ -37,48 +44,79 @@ const Signin = () => {
       setAlert({link: "", text:''})
       e.preventDefault();
       const details = {email, password}
-      try {
-        const response = await loginUser(details)
-        if ('token' in response) {
-          //console.log("successful")
-            console.log('SUCCESS')
-            localStorage.setItem('accessToken', response.token);
-            localStorage.setItem('useremail', JSON.stringify(response.email));
-            localStorage.setItem('ID', JSON.stringify(response.id));
-            localStorage.setItem('username', JSON.stringify(response.username));
-            setPassword('')
-            setEmail('')
-            navigate("/profile/dashboard", { replace: true })
-        } else{
-          console.log("erorrrrrrrr")
-          setAlert({link: "Signup Instead?", text:`Invalid login details`})
+     if(email && password){
+        setPending(true)
+        console.log("email and password valid")
+        try {
+          
+          const response = await loginUser(details)
          
-        }
-        console.log(response)
-      } catch (error) {
-        console.log('erorrrrrrrrr')
-        setAlert({link: 'Signup instead?', text: 'invalid login details'})
+          if ('token' in response) {
+
+            setPending(false)
+            toast.success('Successfully signed in')
+            //console.log("successful")
+              console.log('SUCCESS')
+              localStorage.setItem('accessToken', response.token);
+              localStorage.setItem('useremail', JSON.stringify(response.email));
+              localStorage.setItem('ID', JSON.stringify(response.id));
+              localStorage.setItem('username', JSON.stringify(response.username));
+               setPassword('')
+               setEmail('')
+               navigate("/profile/dashboard", { replace: true })
+          } else{
+           console.log("erorrrrrrrr")
+           setAlert({link: "Signup Instead?", text:`Invalid login details`})
+           setPending(false)
+
+          }
+        //console.log(response)
+         } catch (error) {
+           console.error(error)
+           console.log('erorrrrrrrrr')
+           setAlert({link: 'Signup instead?', text: 'invalid login details'})
+           setPending(false)
+           }
+      }else{
+        console.log('no more details')
+        toast.error('Please fill every details')
+        setAlert({link: 'Please fill in all the details', text:''})
       }
-      
     }
+      
      
-   
+    useEffect(
+      () => {
+        let timer1 = setTimeout(() =>  setAlert({text:'',link:''}), 2000);
+        return () => {
+          clearTimeout(timer1);
+        };
+        
+      },
+      [alert]);
   
-    
+    useEffect(() => {
+        AOS.init();
+        AOS.refresh();
+      }, []);
+
   return (
     <>
-    
-      <Flex p={10} justifyContent='center' bg='#e5e5e5' >
+      <ToastContainer 
+        autoClose={2000} 
+        position= "top-center"
+      />
+      <Flex p={{base:'2',md:'5'}} justifyContent='center' bg='#e5e5e5' >
        <Link to='/' className='link-homepage-signin'><AiOutlineArrowLeft/></Link>
-        <img src={Logo}alt="logo"></img>
+        <img className='sign-in-logo' src={Logo}alt="logo"></img>
       </Flex>
       <Flex justifyContent='center' bg='#e5e5e5'>
-        <Box className='signin-conntainer-box' w={{base:'350px', sm:'400px',md:'554px',}} borderRadius={10} bg='#FFFFFF' overflow='hidden' m='1rem 0 5rem 0' p={10}>
+        <Box data-aos="fade-up" data-aos-duration="1000" className='signin-conntainer-box' w={{base:'350px', sm:'400px',md:'554px',}} borderRadius={10} bg='#FFFFFF' overflow='hidden' m='1rem 0 5rem 0' p={10}>
           <Box textAlign='center' >
             <Text
                fontFamily='Volkhov'
-               fontSize='28px'
-               fontWeight='700'
+               fontSize={{base:'22px', sm:'24px', md:'28px',lg:'28px'}}
+               fontWeight={{base:'600',md:'700'}}
                lineHeight='36.12px'
                color='#271B3E'
                letterSpacing={1}
@@ -86,7 +124,7 @@ const Signin = () => {
              >Sign into your Account</Text>
              <Text
              fontFamily='Poppins'
-             fontSize='16px'
+             fontSize={{base:'13px', sm:'14px', md:'16px',lg:'16px'}}
              fontWeight='300'
              lineHeight='24px'
              color='#271B3E'
@@ -126,16 +164,16 @@ const Signin = () => {
             color='#271B3E'
             >Forgot Password</Text>
           </Flex>
-          <Flex flexWrap='wrap' alignItems='center' marginBottom={10}>
+          <Flex flexWrap='wrap' alignItems='center' marginBottom={2}>
             <Text fontSize='15px' fontFamily='Poppins' color='red' marginRight={2}> {alert.text}</Text>
             <Text fontSize='15px'><Link className='signin-user' to='/signup'>{alert.link}</Link></Text>
           </Flex>
           <Box textAlign='center'>
-              <button onClick={handleSubmit} className='signin-button'>Sign in</button>
+              <button onClick={handleSubmit} className='signin-button'>{pending? <Spinner size='lg' thickness='4px'/> : "Sign in"}</button>
           </Box>
           <Text
            fontFamily='Poppins'
-           fontSize='18px'
+           fontSize={{base:'14px',sm:'14px', md:'18px'}}
            fontWeight='medium'
            lineHeight='24px'
            color='1F1F1F'

@@ -42,3 +42,10 @@
         
     }
 }
+
+@media screen and (max-width:520px) { 
+    .header-button{
+        width: 180px !important;
+        font-size: 12px !important;
+    }
+}

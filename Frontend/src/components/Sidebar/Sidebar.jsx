@@ -1,16 +1,16 @@
 import React, {useEffect, useState, useRef} from 'react'
 import './Sidebar.css'
-import {GiHamburgerMenu } from 'react-icons/gi'
 import {BsFillGridFill} from 'react-icons/bs'
 import {MdPayment} from 'react-icons/md'
 import {IoMdSettings} from 'react-icons/io'
 import {AiOutlineUserDelete,AiOutlineClose} from 'react-icons/ai'
 import Logo from '../../Images/Logo.svg'
-import {Box, Flex, Spacer,List,ListItem,ListIcon,} from '@chakra-ui/react'
-import { Link, NavLink } from 'react-router-dom'
+import {Box, Flex, List,ListItem,ListIcon,} from '@chakra-ui/react'
+import { NavLink } from 'react-router-dom'
 
 
 const Sidebar = () => {
+   
 
     const node = useRef();
 
@@ -32,25 +32,26 @@ const Sidebar = () => {
     }
 
     const handleClick = e => {
-        if (node.current.contains(e.target)) {
-          // inside click
-          return;
+        if(window.innerWidth <=815 ){
+            if (node.current.contains(e.target)) {
+                // inside click
+                return;
+            }
+            
+            document.getElementById("sidenav").style.width = "0"; 
+              // outside click 
         }
-
-        document.getElementById("sidenav").style.width = "0";
-        
-        document.getElementById("links-cont").style.display = "none";
-        // outside click 
         
       };
 
     useEffect(() => {
         // add when mounted
         document.addEventListener("mousedown", handleClick);
-        // return function to be called when unmounted
-        return () => {
+         // return function to be called when unmounted
+           return () => {
           document.removeEventListener("mousedown", handleClick);
         };
+        
       }, []);
             
 
@@ -59,9 +60,9 @@ const Sidebar = () => {
     <aside ref={node}  className='profile-sidebar' id='sidenav'>
         <Flex className='sidebar-menu' > {/*p='1.5rem 1rem'*/} 
             <Box  className='sidebar-logo'><img src={Logo}></img></Box>
-            <Box onClick={closeSidebar} className='sidebar-close-menu' fontSize={30} pt='8px' color='#705897' fontWeight='bold'><AiOutlineClose/></Box>
+            <Box onClick={closeSidebar} className='sidebar-close-menu' fontSize={{base:'25px',md:'30px'}} pt='8px' color='#705897' fontWeight='bold'><AiOutlineClose/></Box>
         </Flex>
-        <List p='1rem 0.2rem'
+        <List p={{lg:'1rem 0.2rem', md:'1rem 0.2rem', sm:'3rem 0.3rem', base:'3rem 0.3rem'}}
            display='block'
            fontSize={18}
            fontWeight='500'

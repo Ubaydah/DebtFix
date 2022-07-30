@@ -77,7 +77,7 @@ const AnalyticsDashboard = ({}) => {
 
   return (
     <>
-       <Box  className='analytics-dashboard' w={{xl:'30%',lg:'40%', md:'70%', base:'100%'}}  h='40rem' ml='10px'>
+       <Box className='analytics-dashboard' w={{xl:'30%',lg:'40%', md:'70%', base:'100%'}}  h='40rem' ml={{base:'0',md:'10px'}}>
           <Box className='analytics-background' p='1rem 0' borderRadius={15}>
              <Flex alignItems='center' color='white' p='25px'>
                <Icon as={BsWallet}/>

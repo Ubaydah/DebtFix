@@ -46,7 +46,7 @@ const ModalFundWallet = ({setFundWalletModal}) => {
             <div className="modal-profile-update">
                 <Text
                     textAlign='center' 
-                    fontSize='20px'
+                    fontSize={{md:'20px', sm:'18px', base:'15px', lg:'20px', xl:'20px'}}
                     fontFamily='Volkhov'
                     fontWeight='400'
                 >Fund Wallet</Text>

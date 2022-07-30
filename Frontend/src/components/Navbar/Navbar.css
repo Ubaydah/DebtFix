@@ -11,7 +11,9 @@
     text-align:center; 
     font-weight: 400;
 }
-
+.navbar-container{
+  padding: 2px 0;
+}
 .sign-navbar{
   padding: 3px 17px;
   border:1px solid #3A1C6B;
@@ -110,5 +112,15 @@
   .navbar-links-sign{
     display: none !important;
   }
+  .navbar-container{
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+  }
 }
 
+
+@media screen and (max-width:540px) {
+  .navbar-logo{
+    width: 90px !important;
+    margin-top: 10px !important;
+  }
+}

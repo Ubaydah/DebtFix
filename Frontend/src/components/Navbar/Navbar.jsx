@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import {Text, Flex, Spacer, Box, Button} from '@chakra-ui/react'
 import logo from '../../Images/Logo.svg'
 import './Navbar.css'
@@ -19,23 +19,39 @@ const breakpoints = {
 // 3. Extend the theme
 const theme = extendTheme({ breakpoints })
 const Navbar = () => {
+
+  const node = useRef();
+
    const [showsidebar, setShowsidebar] = useState(false)
    const showbar = ()=>{
       setShowsidebar(!showsidebar)
     }
 
-   function getHeight(){
-     console.log(window.innerHeight)
-    }
+  
+    const handleClick = e => {
+      if (node.current.contains(e.target)) {
+        // inside click
+        return;
+      }
+      document.getElementById('nav-links-container').style.display = "none"
+      
+    };
+
    useEffect(()=>{
-      console.log(window.pageYOffset,'scroll')
-    })
+       // add when mounted
+       document.addEventListener("mousedown", handleClick);
+       // return function to be called when unmounted
+       return () => {
+         document.removeEventListener("mousedown", handleClick);
+       };
+    },[])
 
 
   return (
      <>
-       <Flex m='0 auto 1rem auto' w='90vw' >
-          <Box p='0.5rem 0rem'><img src={logo} alt="logo"></img></Box>
+     <Box  className='navbar-container'>
+       <Flex  m='0 auto 1rem auto' w='90vw' >
+          <Box  p='0.5rem 0rem'><img className='navbar-logo' src={logo} alt="logo"></img></Box>
           <Spacer></Spacer>
           <Flex className='navbar-links' m='5px'>
             <Text fontFamily='Poppins' fontWeight={400} fontSize='16px' p='1rem 3rem'>Home</Text>
@@ -53,7 +69,8 @@ const Navbar = () => {
             <Box onClick={showbar} className='displayHamburgerMenu' m='17px 0 0 0' fontSize={30} color='#3A1C6B'><AiOutlineMenuFold/></Box>
          </Flex>
        </Flex>
-       {showsidebar && <Box className='nav-links-container'>
+      </Box>
+       {showsidebar && <Box ref={node} id="nav-links-container" className='nav-links-container'>
              <ul className='nav-links'>
                  <li>Home</li>
                  <li>Product</li>

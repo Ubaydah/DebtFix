@@ -21,9 +21,27 @@ import { useNavigate } from 'react-router-dom'
 
 
 const DashboardDetails = ({username,id, setLoading}) => {
+    
+
+  const [screenSize, setScreenSize] = useState(window.innerWidth)
    
-
-
+ /* const checkSize = ()=>{
+    //console.log(window.innerWidth)
+    return setScreenSize(window.innerWidth)
+  }
+  useEffect(()=>{
+    window.addEventListener('resize', checkSize)
+       return ()=>{
+           window.removeEventListener('resize', checkSize)
+       }
+  }) 
+  useEffect(()=>{
+    if (screenSize >=815) { 
+      document.getElementById("sidenav").style.width = "16rem";
+      document.getElementById("links-cont").style.display = "block";
+    }
+},[screenSize])*/
+ 
    const [addCreditorModal, setAddcreditorModal] = useState(false)
    const [showEditModal, setShowEditModal] = useState(false)
    const [payCreditorModal, setPaycreditorModal] = useState(false)
@@ -105,23 +123,24 @@ const DashboardDetails = ({username,id, setLoading}) => {
   return (
     <>
     <Box className='dashboard-details'  id='dashboard-details' h='100%' bg='#F5F5F5' marginLeft='16rem' p='0rem 1rem 0rem 1rem' >
-    <Box onClick={openSidebar} className='sidebar-open-menu' fontSize={25}  color='#705897' fontWeight='bold'><GiHamburgerMenu/></Box>
-      <Flex justifyContent='flex-end'  mb='0' >
+    <Box onClick={openSidebar} className='sidebar-open-menu' fontSize={20}  color='#705897' fontWeight='bold'><GiHamburgerMenu/></Box>
+     {/*<Flex justifyContent='flex-end'  mb='0' >
         <Box m='0.5rem 0.5rem' bg='white' w={33} h={33} borderRadius={5} pos='relative' ><BsSearch className='icon'/></Box>
         <Box m='0.5rem 0.5rem' p='0rem auto' bg='white'  w={33} h={33} borderRadius={5}pos='relative'><BsBell className='icon'/></Box>
-      </Flex>
+      </Flex>}*/}
       <Text
         fontFamily='Volkhov'
-        fontSize='26px'
+        fontSize={{lg:'26px', md:'26px', sm:'24px', base:'20px'}}
         fontWeight='700'
         lineHeight='30px'
         color='#271B3E'
         textTransform='capitalize'
+        pt={8}
        >Welcome back, {username}</Text>
       <Text
        color='#705897'
        fontFamily='Poppins'
-       fontSize='14px'
+       fontSize={{lg:'14px',sm:'14px',md:'14px', base:'12px'}}
        fontWeight='300'
        lineHeight='25px'
       >Let us help you manage your debts</Text>
@@ -136,12 +155,12 @@ const DashboardDetails = ({username,id, setLoading}) => {
           p='0.5rem 0'
           >Quick Actions</Text>
           <Flex w={{base:'90%', md:'70%',lg:'70%'}} color='#2A0B9C' justifyContent='space-between'>
-            <button onClick={addCreditor} className='button-debt glow-on-hover '><AiOutlineUsergroupAdd/> Add Creditor</button>
-            <button onClick={payCreditor} className='button-debt glow-on-hover '><AiOutlineUsergroupAdd/>Pay creditor</button>
+            <button onClick={addCreditor} className='glow-on-hover '><AiOutlineUsergroupAdd/> Add Creditor</button>
+            <button onClick={payCreditor} className='glow-on-hover '><AiOutlineUsergroupAdd/>Pay creditor</button>
           </Flex>
           <Text
            fontFamily='Poppins'
-           fontSize='20px'
+           fontSize={{lg:'20px' ,md:'20px', base:'18px'}}
            fontWeight='bold'
            color='#2A0B9C'
           p='1rem 0'
@@ -181,7 +200,7 @@ const DashboardDetails = ({username,id, setLoading}) => {
                   <Th className='table-heading'>Creditor</Th>
                   <Th className='table-heading'>AmountOwned</Th>
                   <Th className='table-heading'>AccountNo</Th>
-                  <Th className='table-heading'>Date Due</Th>
+                  <Th className='table-heading'>Date Added</Th>
                   <Th className='table-heading'>Status</Th>
                   <Th className='table-heading'>Activity</Th>
                   </Tr>
@@ -197,7 +216,7 @@ const DashboardDetails = ({username,id, setLoading}) => {
                         <Td>{name}</Td>
                         <Td>{amount_owned}</Td>
                         <Td>{account_number}</Td>
-                        <Td>{date_due}</Td>
+                        <Td>{new Date (date_due).toLocaleDateString()}</Td>
                         <Td color={status==='paid'? 'green' :'red'}>{status}</Td>
                         <Td><HStack>
                             <Icon onClick={()=>editDebtorDetails(id,name,amount_owned,account_number, bank_code)} className='edit' color='green' as={AiOutlineEdit}></Icon>

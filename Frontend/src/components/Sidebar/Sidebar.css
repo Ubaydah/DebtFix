@@ -17,6 +17,7 @@
     padding: 10px 10px;
     border-radius: 0px;
     transition: all 0.3s linear ;
+    font-size: 18px;
 }
 
 .links-container{
@@ -63,7 +64,7 @@
 }
 .sidebar-logo img{
     height: 4rem;
-    width: 13rem;
+    width: 11rem;
     
 }
 
@@ -78,6 +79,31 @@
 
 @media screen and (min-width:815px) {
     .profile-sidebar{
-        width: 16rem;
+        width: 16rem !important;
     }
+}
+
+
+@media screen and (max-width:520px) {
+    .links{
+        font-size: 16px;
+        padding: 10px 7px;
+    }
+    .sidebar-logo{
+        position: relative;
+        top: 0px;
+        
+    }
+    .sidebar-logo img{
+        height: 2rem;
+        width: 7rem;
+    }    
+
+    .sidebar-close-menu{
+        
+        margin-left: 100px;
+        
+    }
+
+    
 }

@@ -19,7 +19,7 @@
 @media screen and (max-width:450px) {
    
     .glow-on-hover{
-        font-size: 12px;
+        font-size: 14px;
     }
 }
 
@@ -28,13 +28,11 @@
 @media screen and (max-width:344px) {
    
     .glow-on-hover{
-        font-size: 10px;
+        font-size: 14px;
     }
 }
 
 @media screen and (max-width:300px) {
     
-    .glow-on-hover{
-        font-size: 10px;
-    }
+   
 }

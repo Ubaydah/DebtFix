@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react'
 import {Box, Flex, Text, Spacer, Grid, GridItem, Icon, Center} from '@chakra-ui/react'
 import {BsSearch, BsBell} from 'react-icons/bs'
 import {AiOutlineUsergroupAdd, AiOutlineTeam, AiOutlinePlus, AiOutlineEdit, AiOutlineDelete} from 'react-icons/ai'
-import {MdPayments} from 'react-icons/md'
 import {GiHamburgerMenu } from 'react-icons/gi'
 import {Table,Thead,Tbody,Tfoot,Tr,Th,Td,TableCaption,TableContainer, HStack} from '@chakra-ui/react'
 import {BsWallet} from 'react-icons/bs'
@@ -17,6 +16,27 @@ import Signin from '../Signin/Signin'
 
 
 const ListofCreditors = () => {
+    
+  const [screenSize, setScreenSize] = useState(window.innerWidth)
+   
+  /*const checkSize = ()=>{
+    //console.log(window.innerWidth)
+    return setScreenSize(window.innerWidth)
+  }
+  useEffect(()=>{
+    window.addEventListener('resize', checkSize)
+       return ()=>{
+           window.removeEventListener('resize', checkSize)
+       }
+  }) 
+  useEffect(()=>{
+    if (screenSize >=815) { 
+      document.getElementById("sidenav").style.width = "16rem";
+      document.getElementById("links-cont").style.display = "block";
+    }
+  })
+  */
+
     const [addCreditorModal, setAddcreditorModal] = useState(false)
     const [showEditModal, setShowEditModal] = useState(false)
     const [payCreditorModal, setPaycreditorModal] = useState(false)
@@ -97,56 +117,54 @@ const ListofCreditors = () => {
   const payCreditor =()=>{
     setPaycreditorModal(true)
   }
-  if (!token) {
-    return <Signin/>
-  }
 
-  if (loading) {
-    return <>
-    <Sidebar/>
-    <Loading/>
-    </>
-   }
-   const openSidebar = ()=>{
+  const openSidebar = ()=>{
     document.getElementById("sidenav").style.width = "16rem";
     document.getElementById("links-cont").style.display = "block";
-    //document.getElementById("dashboard-details").style.width = "0";
-  
+    
+  }
+  if (loading) {
+
+    return( <>
+      <Sidebar/>
+      <Loading/>
+    </>)
   }
 
-  
-  return (
-    <>
-    <Sidebar/>
-    <Box className='main-content-listofcreditors'>
-       <Box onClick={openSidebar} className='sidebar-open-menu' fontSize={25}  color='#705897' fontWeight='bold'><GiHamburgerMenu/></Box>
-       <Flex justifyContent='flex-end'  mb='0'>
-          <Box m={4} bg='white' w={33} h={33} borderRadius={5} pos='relative' ><BsSearch className='icon'/></Box>
-          <Box m={4} p='0rem auto' bg='white'  w={33} h={33} borderRadius={5}pos='relative'><BsBell className='icon'/></Box>
-       </Flex>
+return(
+  <>
+  <Sidebar/>
+  <Box className='main-content-listofcreditors'>
+  <Box onClick={openSidebar} className='sidebar-open-menu' fontSize={20}  color='#705897' fontWeight='bold'><GiHamburgerMenu/></Box>
+     {/*<Flex justifyContent='flex-end'  mb='0'>
+          <Box m={{md:'4px', lg:'4px' ,base:'4px 2px'}} bg='white' w={{md:'33px', base:'25px'}} h={{md:'33px', base:'25px'}}  borderRadius={5} pos='relative' ><BsSearch className='icon'/></Box>
+          <Box m={{md:'4px', lg:'4px' ,base:'4px 2px'}} p='0rem auto' bg='white'  w={{md:'33px', base:'25px'}}  h={{md:'33px', base:'25px'}}  borderRadius={5}pos='relative'><BsBell className='icon'/></Box>
+       </Flex>*/}
       <Box>
         <Text
         fontFamily='Volkhov'
-        fontSize='28px'
+        fontSize={{lg:'28px', md:'26px', base:'23px'}}
         fontWeight='700'
         lineHeight='25px'
         color='#2A0B9C'
+        pt={10}
         pb='5px'
         fontStyle='italic'
         >List of Creditors</Text>
         <Text
          color='#705897'
          fontFamily='Poppins'
-         fontSize='16px'
+         fontSize={{lg:'16px', md:'16px', base:'14px'}}
          fontWeight='300'
          lineHeight='25px'
         >View creditors</Text>
         <Box w='100%' p='15px 0px 0px 0px'>
            <Text
            fontFamily='Poppins'
-           fontSize='18px'
+           fontSize={{lg:'18px', md:'18px', base:'16px'}}
            fontWeight='bold'
            color='#2A0B9C'
+        
           p='0.5rem 0'
           >Quick Actions</Text>
           <Flex w={{base:'100%', sm:'90%',md:'80%', lg:'50%',xl:'50%'}} color='#2A0B9C' justifyContent='space-between'>
@@ -158,7 +176,7 @@ const ListofCreditors = () => {
           <Text
             w ='100%'
            fontFamily='Poppins'
-           fontSize='20px'
+           fontSize={{lg:'20px', md:'20px', base:'17px'}}
            fontWeight='bold'
            color='#2A0B9C'
           p='1rem 0'
@@ -198,7 +216,7 @@ const ListofCreditors = () => {
                   <Th className='table-heading'>Creditor</Th>
                   <Th className='table-heading'>AmountOwned</Th>
                   <Th className='table-heading'>AccountNo</Th>
-                  <Th className='table-heading'>Date Due</Th>
+                  <Th className='table-heading'>Date Added</Th>
                   <Th className='table-heading'>Status</Th>
                   <Th className='table-heading'>Activity</Th>
                   </Tr>
@@ -207,14 +225,16 @@ const ListofCreditors = () => {
                 {
                   creditors?.map((creditor)=>{
                     const {id,name,amount_owned, account_number,status, bank_code, date_due} = creditor
-                    //console.log(id)
+                    //console.log(date_due,'date due')
+                    //const c = { time: date_due };
+                    //console.log(new Date(c.time).toLocaleDateString(), "converted")
                     return (
                       <Tr color='#271B3E' opacity='90%' border='1px solid rgba(58, 28, 107, 0.15)'
                       fontFamily='Poppins' fontSize='14px' lineHeight='21px'>
                         <Td className='table-data'>{name}</Td>
                         <Td className='table-data'>{amount_owned}</Td>
                         <Td className='table-data'>{account_number}</Td>
-                        <Td className='table-data'>{date_due}</Td>
+                        <Td className='table-data'>{new Date (date_due).toLocaleDateString()}</Td>
                         <Td className='table-data' color={status==='paid'? 'green' :'red'}>{status}</Td>
                         <Td className='table-data'><HStack>
                             <Icon onClick={()=>editDebtorDetails(id,name,amount_owned,account_number, bank_code)} className='edit' color='green' as={AiOutlineEdit}></Icon>
